@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ENAP: Emergent Neural Automaton Policies</title>
+  <title>BrickCraft: Visuomotor Skill Composition with Situated Manual Guidance</title>
 
-  <!-- KaTeX (数学公式渲染) -->
+  <!-- KaTeX (math rendering) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
     onload="renderMathInElement(document.body);"></script>
 
-  <!-- FontAwesome (图标) -->
+  <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <!-- Academicons (学术图标如 arXiv) -->
+  <!-- Academicons (arXiv, etc.) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
 
-  <!-- Google Fonts: Source Sans 3 (body) + Source Serif 4 (headings) -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=STIX+Two+Math&display=swap" rel="stylesheet" />
@@ -34,17 +34,17 @@
       --text-light: #333333;
       --accent: #5b7a6e;
       --accent-dark: #3d5a4e;
+      --brick:  #C26756;
       --radius: 8px;
       --radius-sm: 6px;
       --shadow: 0 1px 3px rgba(0,0,0,0.06);
-      /* Uniform stack: Key Takeaways → Method → Comparison → Qualitative; then Properties → BibTeX */
       --chapter-gap: 3.75rem;
       --font-heading: 'Source Serif 4', 'Source Serif Pro', Georgia, 'Times New Roman', serif;
     }
 
     /* ========== Reset & Base ========== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 56px; }
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 
     body {
       font-family: 'Source Sans 3', 'Source Sans Pro', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -66,31 +66,14 @@
     }
 
     /* ========== Section Spacing ========== */
-    .section {
-      padding: 56px 0;
-    }
-    .takeaways-section.section {
-      padding-top: 56px;
-      padding-bottom: calc(var(--chapter-gap) / 2);
-    }
-    .method-section.section {
-      padding-top: calc(var(--chapter-gap) / 2);
-      padding-bottom: calc(var(--chapter-gap) / 2);
-    }
-    .properties-section.section {
-      padding-top: calc(var(--chapter-gap) / 2);
-      padding-bottom: calc(var(--chapter-gap) / 2);
-    }
-    .results-section.section {
-      padding-top: calc(var(--chapter-gap) / 2);
-      padding-bottom: calc(var(--chapter-gap) / 2);
-    }
-    .bibtex-section.section {
-      padding-top: calc(var(--chapter-gap) / 2);
-      padding-bottom: 56px;
-    }
+    .section { padding: 56px 0; }
+    .takeaways-section.section { padding-top: 56px; padding-bottom: calc(var(--chapter-gap) / 2); }
+    .method-section.section    { padding-top: calc(var(--chapter-gap) / 2); padding-bottom: calc(var(--chapter-gap) / 2); }
+    .skills-section.section    { padding-top: calc(var(--chapter-gap) / 2); padding-bottom: calc(var(--chapter-gap) / 2); }
+    .results-section.section   { padding-top: calc(var(--chapter-gap) / 2); padding-bottom: calc(var(--chapter-gap) / 2); }
+    .bibtex-section.section    { padding-top: calc(var(--chapter-gap) / 2); padding-bottom: 56px; }
 
-    /* ========== Single page shell (only outer surface) ========== */
+    /* ========== Single page shell ========== */
     .page-shell {
       max-width: 1144px;
       margin: 0 auto;
@@ -109,32 +92,35 @@
       text-align: center;
     }
 
+    .brickcraft-wordmark {
+      display: block;
+      width: 100%;
+      max-width: 540px;
+      height: auto;
+      margin: 0 auto 22px;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
     .paper-title {
       font-family: var(--font-heading);
-      font-size: 1.96rem;
+      font-size: 1.6rem;
       font-weight: bold;
       color: var(--text);
       line-height: 1.3;
       margin-bottom: 20px;
     }
-    .paper-title__line {
-      display: block;
-    }
+    .paper-title__line { display: block; }
     .paper-title__sub {
       display: block;
       font-size: inherit;
       line-height: inherit;
       margin-top: 0.18em;
     }
-    .hero-section .container {
-      max-width: 940px;
-    }
-    .paper-title .hl {
-      background: none;
-    }
-    /* ENAP in body: semibold; title letters stay heavier + accent color */
-    .enap { color: inherit; font-weight: 600; }
-    .paper-title .enap { color: #BE5D3D; font-weight: 700; }
+    .hero-section .container { max-width: 940px; }
+
+    .bc { color: inherit; font-weight: 600; }
+    .paper-title .bc { color: var(--brick); font-weight: 700; }
 
     .venue-badge {
       display: inline-block;
@@ -155,14 +141,8 @@
       margin-bottom: 8px;
     }
     .authors a { color: var(--text); }
-    .authors a:hover,
-    .authors a:focus-visible {
-      color: #1f1f1f;
-      text-decoration: underline;
-    }
-    .authors a:active {
-      color: #141414;
-    }
+    .authors a:hover, .authors a:focus-visible { color: #1f1f1f; text-decoration: underline; }
+    .authors a:active { color: #141414; }
 
     .affiliations {
       font-size: 0.94rem;
@@ -184,7 +164,6 @@
       gap: 12px;
       margin-top: 12px;
     }
-
     .link-btn {
       display: inline-flex;
       align-items: center;
@@ -210,21 +189,11 @@
     .link-btn i { font-size: 1rem; color: #353535; }
     .link-btn:hover i { color: #1a1a1a; }
 
-    .link-btn--paper,
-    .link-btn--arxiv,
-    .link-btn--video,
-    .link-btn--code {
-      background: #e8e8e8;
-      color: var(--text);
-    }
-
     /* ========== Teaser ========== */
-    .teaser-section {
-      padding: 44px 0 30px;
-    }
+    .teaser-section { padding: 44px 0 30px; }
     .teaser-media {
       width: 100%;
-      max-width: 800px;
+      max-width: 880px;
       height: auto;
       margin: 0 auto;
       display: block;
@@ -240,7 +209,6 @@
       margin-left: auto;
       margin-right: auto;
       line-height: 1.6;
-      white-space: nowrap;
     }
 
     /* ========== Section Titles ========== */
@@ -249,23 +217,14 @@
       font-size: 1.4rem;
       font-weight: 700;
       margin-bottom: 1rem;
-      color: #BE5D3D;
+      color: var(--brick);
       letter-spacing: -0.02em;
       display: block;
     }
-    .section-title--major {
-      font-size: 1.52rem;
-    }
-    /* Inline highlight for emphasis text */
-    .hl-cream { background: var(--cream); padding: 1px 6px; border-radius: 4px; }
-    .hl-pink  { background: var(--pink);  padding: 1px 6px; border-radius: 4px; }
-    .hl-green { background: var(--green); padding: 1px 6px; border-radius: 4px; }
-    .hl-blue  { background: var(--blue);  padding: 1px 6px; border-radius: 4px; }
+    .section-title--major { font-size: 1.52rem; }
 
     /* ========== Abstract ========== */
-    .abstract-section.section {
-      padding-top: 44px;
-    }
+    .abstract-section.section { padding-top: 44px; }
     .abstract-section .section-title {
       text-align: center;
       font-size: 1.34rem;
@@ -281,7 +240,6 @@
     }
 
     /* ========== Method ========== */
-    .method-section { }
     .method-figure {
       width: 100%;
       height: auto;
@@ -295,12 +253,31 @@
       font-size: 0.98rem;
       line-height: 1.68;
     }
+    .figure-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .figure-row--triple { grid-template-columns: repeat(3, 1fr); }
+    .figure-row .method-figure {
+      width: 100%;
+      object-fit: cover;
+      aspect-ratio: 1 / 1;
+      background: #f0f0f0;
+    }
+    .figure-row figcaption {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-top: 6px;
+    }
+    @media (max-width: 700px) {
+      .figure-row, .figure-row--triple { grid-template-columns: 1fr 1fr; }
+    }
 
     /* ========== Key Takeaways ========== */
-    .takeaways-list {
-      margin: 0;
-      padding: 0;
-    }
+    .takeaways-list { margin: 0; padding: 0; }
     .takeaway-item {
       background: #f4f4f5;
       border: 1px solid #e8e8e8;
@@ -308,9 +285,7 @@
       padding: 14px 18px;
       margin-bottom: 12px;
     }
-    .takeaway-item:last-child {
-      margin-bottom: 0;
-    }
+    .takeaway-item:last-child { margin-bottom: 0; }
     .takeaway-line {
       margin: 0;
       font-size: 0.98rem;
@@ -323,239 +298,97 @@
       color: var(--text);
     }
 
-    /* ========== Properties (Qual-style card: white | gray) ========== */
-    .properties-shell {
-      display: flex;
-      align-items: stretch;
-      border-radius: var(--radius-sm);
+    /* ========== Skills showcase (flat dense grid) ========== */
+    .skill-block {
       border: 1px solid #ececec;
-      overflow: hidden;
-      background: #fafafa;
-    }
-    .properties-col--white {
-      flex: 1;
-      min-width: 0;
-      background: #fcfcfc;
-      padding: 22px 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: stretch;
-      gap: 22px;
-    }
-    .properties-white-top {
-      flex-shrink: 0;
-    }
-    .properties-col--gray {
-      flex: 1;
-      min-width: 0;
-      background: #f5f5f5;
-      border-left: 1px solid #e8e8e8;
-      padding: 22px 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: stretch;
-      gap: 1.85rem;
-    }
-    .properties-col--gray .properties-text-block {
-      margin-bottom: 0;
-    }
-    .properties-text-block {
-      margin-bottom: 1.85rem;
-    }
-    .properties-text-block:last-child {
-      margin-bottom: 0;
-    }
-    .property-line {
-      margin: 0;
-      font-size: 0.98rem;
-      line-height: 1.68;
-      text-align: justify;
-      color: var(--text-light);
-    }
-    .property-label {
-      font-weight: 600;
-      color: var(--text);
-    }
-    .properties-figure {
-      flex-shrink: 0;
-      align-self: stretch;
-      width: 100%;
-      height: auto;
-      display: block;
       border-radius: var(--radius-sm);
-      border: none;
+      background: #fafafa;
+      padding: 18px 20px 20px;
+      margin-bottom: 20px;
     }
-    /* ========== Results ========== */
-    .results-section { }
+    .skill-block:last-child { margin-bottom: 0; }
 
-    /* Horizontal row: Quantitative + Table side by side */
-    .results-row {
+    .skill-block-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 10px 14px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed #dcdcdc;
+    }
+    .skill-tau {
+      font-family: "STIX Two Math", "Times New Roman", serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--brick);
+      letter-spacing: 0.02em;
+    }
+    .skill-desc {
+      font-size: 0.92rem;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+
+    .skill-row {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-bottom: 8px;
+      grid-template-columns: 64px 1fr;
+      gap: 10px;
+      align-items: stretch;
+      margin-bottom: 10px;
     }
-    .results-col { margin-bottom: 0; }
-
-    .result-block {
-      margin-bottom: 0;
-    }
-    .result-block p {
-      font-size: 0.98rem;
-      color: var(--text-light);
-      margin-bottom: 12px;
-      line-height: 1.68;
-    }
-    .inference-desc {
-      margin-top: 14px;
-      text-align: justify;
-      color: var(--text-light);
-      font-size: 0.98rem;
-      line-height: 1.68;
-    }
-    .section-subtext {
-      font-size: 0.98rem;
-      line-height: 1.68;
-      color: var(--text-light);
-      margin: 0 0 18px 0;
-      text-align: justify;
-    }
-    .section-subtext--after-block {
-      margin-bottom: 0;
-    }
-    .result-block .section-subtext--after-block {
-      margin-top: calc(var(--chapter-gap) / 2);
-    }
-    .results-section .container > .section-subtext.section-subtext--after-block {
-      margin-top: calc(var(--chapter-gap) / 2);
-    }
-    .section-title--spaced { margin-top: var(--chapter-gap); }
-    .section-title--after-block {
-      margin-top: var(--chapter-gap);
-      padding-top: 0;
-    }
-    .result-img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: var(--radius-sm);
-      border: none;
-    }
-
-    /* Qualitative panel: very light gray theme */
-    .qual-panel {
-      display: flex;
-      gap: 0;
-      border-radius: var(--radius-sm);
-      border: 1px solid #ececec;
-      overflow: hidden;
-      background: #fafafa;
-    }
-
-    .qual-tabs {
-      display: flex;
-      flex-direction: column;
-      flex-shrink: 0;
-      width: 52px;
-      background: #f5f5f5;
-      border-right: 1px solid #e8e8e8;
-    }
-
-    .qual-tab {
-      flex: 1;
+    .skill-row:last-child { margin-bottom: 0; }
+    .skill-row-label {
       display: flex;
       align-items: center;
       justify-content: center;
-      border: none;
-      background: #f1f1f1;
-      cursor: pointer;
-      padding: 16px 4px;
-      position: relative;
-      transition: background 0.2s;
-      font-family: inherit;
-      font-size: 0;
-    }
-    .qual-tab span {
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      font-size: 0.86rem;
-      font-weight: bold;
-      color: var(--text-light);
-      white-space: nowrap;
-      letter-spacing: 0.5px;
-      transition: color 0.2s;
-    }
-    .qual-tab:hover { background: #e8e8e8; }
-    .qual-tab:hover span { color: var(--text); }
-    .qual-tab--active {
-      background: #e4e4e4;
-    }
-    .qual-tab--active span {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
       color: var(--text);
-    }
-    .qual-tab--active::after {
-      content: '';
-      position: absolute;
-      right: -1px;
-      top: 20%;
-      height: 60%;
-      width: 3px;
-      background: #8a8a8a;
-      border-radius: 3px 0 0 3px;
-    }
-
-    .qual-content {
-      flex: 1;
-      padding: 22px 26px;
-      min-height: 300px;
-      max-width: 560px;
-      background: #fcfcfc;
-    }
-
-    .qual-cluster-panel {
-      width: 320px;
-      flex-shrink: 0;
-      background: #f6f6f6;
-      padding: 22px 16px 16px 16px;
-      border-left: 1px solid #eaeaea;
-      overflow-y: auto;
-    }
-    .cluster-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      gap: 12px 10px;
-    }
-    .cluster-cell {
-      text-align: center;
-    }
-    .cluster-cell img {
-      width: 100%;
+      background: #efe9d8;
       border-radius: 4px;
-      border: none;
+      padding: 4px;
     }
-    .cluster-cell .cluster-label {
-      font-size: 0.75rem;
-      color: var(--text-light);
-      margin-top: 3px;
-    }
-    .cluster-pane { display: none; }
-    .cluster-pane--active { display: block; }
-    .sm-video-label {
-      font-size: 0.86rem;
-      font-weight: bold;
-      color: var(--text-light);
-      margin: 6px 0 3px;
-    }
+    .skill-row-label--unseen { background: #e0eaf3; color: #28466b; }
 
-    .cluster-task-desc {
-      margin-top: 18px;
-      font-size: 0.9rem;
-      line-height: 1.62;
-      color: var(--text-light);
-      text-align: justify;
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      column-gap: 8px;
+      row-gap: 8px;
+    }
+    .skill-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .skill-clip-cell {
+      position: relative;
+      display: block;
+    }
+    .skill-clip-cell video {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+      background: #000;
+      border-radius: 3px;
+    }
+    .skill-clip-tag {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #fff;
+      background: rgba(0,0,0,0.55);
+      padding: 1px 5px;
+      border-radius: 3px;
+      pointer-events: none;
+      text-transform: uppercase;
     }
 
     .qual-hint {
@@ -567,47 +400,46 @@
       font-style: italic;
     }
 
-    .qual-pane { display: none; }
-    .qual-pane--active { display: block; }
+    @media (max-width: 900px) {
+      .skill-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .skill-row { grid-template-columns: 1fr; gap: 6px; }
+      .skill-row-label { padding: 3px 8px; }
+      .skill-grid { grid-template-columns: repeat(2, 1fr); }
+    }
 
-    .task-card {
+    /* ========== Long-horizon ========== */
+    .longhorizon-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .lh-card {
       background: var(--white);
       border-radius: var(--radius-sm);
       overflow: hidden;
+      border: 1px solid #ececec;
     }
-    .task-card img {
+    .lh-card video {
       width: 100%;
       display: block;
-      border-radius: var(--radius-sm);
+      background: #000;
     }
-
+    .lh-card-label {
+      text-align: center;
+      font-size: 0.92rem;
+      font-weight: 600;
+      padding: 8px 6px 10px;
+      color: var(--text);
+      background: #fafafa;
+    }
     @media (max-width: 700px) {
-      .qual-panel { flex-direction: column; }
-      .qual-tabs {
-        flex-direction: row;
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid #eee;
-      }
-      .qual-tab span {
-        writing-mode: horizontal-tb;
-        transform: none;
-      }
-      .qual-tab--active::after {
-        right: auto; top: auto;
-        bottom: -1px; left: 20%;
-        width: 60%; height: 3px;
-        border-radius: 3px 3px 0 0;
-      }
-      .qual-content { padding: 20px 16px; min-height: auto; }
-      .qual-cluster-panel { padding: 20px 16px 16px 16px; }
+      .longhorizon-grid { grid-template-columns: 1fr; }
     }
 
-    /* ========== Tables (modern / academic) ========== */
-    .result-table-wrapper {
-      overflow-x: auto;
-      margin-top: 4px;
-    }
+    /* ========== Tables ========== */
+    .result-table-wrapper { overflow-x: auto; margin-top: 4px; }
     .result-table {
       width: 100%;
       border-collapse: collapse;
@@ -625,7 +457,7 @@
       padding: 10px 12px;
       text-align: center;
       font-weight: 600;
-      font-size: 0.72rem;
+      font-size: 0.78rem;
       letter-spacing: 0.02em;
       border-bottom: 1px solid #d8d8d8;
     }
@@ -644,93 +476,47 @@
       text-align: left;
       font-weight: 700;
     }
-    .result-table tbody tr:last-child td {
-      border-bottom: none;
-    }
-    .result-table tbody tr.result-row--ours td {
-      font-weight: 700;
-    }
-    .result-table tbody tr.result-row--ours .enap {
-      font-weight: 700;
-    }
-    .result-table tbody tr.result-row--ours td small {
-      font-weight: 600;
-      color: #3a3a3a;
-    }
-    .result-table .best { color: #1a1a1a; }
+    .result-table tbody tr:last-child td { border-bottom: none; }
+    .result-table tbody tr.result-row--ours td { font-weight: 700; }
+    .result-table tbody tr.result-row--ours .bc { font-weight: 700; }
+    .result-table .best { color: var(--brick); }
 
-    .result-table--sm { font-size: 0.79rem; }
-    .result-table--sm thead th { padding: 7px 6px; font-size: 0.75rem; }
-    .result-table--sm tbody td { padding: 6px 6px; white-space: nowrap; }
-    .result-table--sm small { color: #454545; font-size: 0.68rem; font-weight: 400; }
-    .result-table--sm tbody tr.result-row--ours td small {
-      font-weight: 600;
-    }
-
-    /* Properties: ENAP column — bold (700), not thead default 600 */
-    .properties-section .result-table thead th:last-child {
-      font-weight: 700;
-    }
-    .properties-section .result-table tbody td:last-child,
-    .properties-section .result-table tbody td:last-child strong {
-      font-weight: 700;
-    }
-
-    .cat-row td {
-      background: #f4f4f2 !important;
-      font-style: italic;
-      color: var(--text-light);
-      text-align: left !important;
-      padding: 5px 10px !important;
-      font-size: 0.75rem;
-    }
+    .result-table--sm { font-size: 0.84rem; }
+    .result-table--sm thead th { padding: 7px 6px; font-size: 0.74rem; }
+    .result-table--sm tbody td { padding: 6px 8px; white-space: nowrap; }
 
     .tables-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 32px 36px;
-      align-items: stretch;
+      gap: 28px 28px;
+      align-items: start;
     }
-    .table-block {
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
-    }
-    .table-block--left {
-      justify-content: flex-start;
-      height: 100%;
-    }
-    .table-block--right {
-      justify-content: space-between;
-      height: 100%;
-    }
-    .table-block__stack {
-      display: flex;
-      flex-direction: column;
-      flex-shrink: 0;
-    }
+    .table-block { display: flex; flex-direction: column; min-height: 0; }
     .table-caption {
       font-weight: bold;
       font-size: 0.92rem;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
       color: var(--text);
       text-align: center;
     }
-
     @media (max-width: 700px) {
       .tables-grid { grid-template-columns: 1fr; }
-      .table-block--left,
-      .table-block--right {
-        height: auto;
-      }
-      .table-block--right {
-        justify-content: flex-start;
-        gap: 18px;
-      }
+    }
+
+    .section-subtext {
+      font-size: 0.98rem;
+      line-height: 1.68;
+      color: var(--text-light);
+      margin: 0 0 18px 0;
+      text-align: justify;
+    }
+    .section-title--spaced { margin-top: var(--chapter-gap); }
+    .section-title--after-block {
+      margin-top: var(--chapter-gap);
+      padding-top: 0;
     }
 
     /* ========== BibTeX ========== */
-    .bibtex-section { }
     .bibtex-block {
       background: #fafafa;
       border-radius: var(--radius-sm);
@@ -773,29 +559,6 @@
     }
     .footer a { color: var(--text-light); }
 
-    /* ========== Placeholder styling ========== */
-    .placeholder {
-      background: repeating-linear-gradient(
-        -45deg,
-        #f0ead2,
-        #f0ead2 10px,
-        #e8e2cc 10px,
-        #e8e2cc 20px
-      );
-      border: 2px dashed #c5b87a;
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #8a7a50;
-      font-weight: bold;
-      font-size: 0.92rem;
-      min-height: 200px;
-      padding: 20px;
-      text-align: center;
-    }
-    .placeholder--tall { min-height: 360px; }
-
     /* ========== Navbar ========== */
     .navbar {
       position: fixed;
@@ -806,8 +569,8 @@
       background: var(--white);
       border-bottom: 1px solid #e8e8e8;
       box-shadow: 0 3px 15px rgba(0,0,0,0.12);
-      padding: 0 40px;
-      height: 68px;
+      padding: 0 44px;
+      height: 84px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -815,67 +578,39 @@
     .navbar-logos {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 18px;
     }
     .navbar-logos img {
-      height: 47px;
+      height: 56px;
       width: auto;
+      display: block;
     }
     .navbar-links {
       display: flex;
       align-items: center;
-      gap: 30px;
+      gap: 34px;
     }
     .navbar a {
-      font-size: 0.98rem;
-      font-weight: 400;
+      font-size: 1.12rem;
+      font-weight: 500;
       color: var(--text-light);
       text-decoration: none;
       transition: color 0.2s;
       letter-spacing: 0.22px;
       line-height: 1.15;
     }
-    .navbar a:hover {
-      color: var(--text);
-      text-decoration: none;
-    }
+    .navbar a:hover { color: var(--text); text-decoration: none; }
 
     /* ========== Responsive ========== */
     @media (max-width: 700px) {
-      .paper-title { font-size: 1.42rem; }
+      .paper-title { font-size: 1.24rem; }
+      .brickcraft-wordmark { max-width: 78%; }
       .page-shell { padding: 0 clamp(14px, 4vw, 22px); }
       .section { padding: 40px 0; }
-      .abstract-section.section {
-        padding-top: 34px;
-      }
-      .takeaways-section.section {
-        padding-top: 40px;
-        padding-bottom: calc(var(--chapter-gap) / 2);
-      }
-      .method-section.section {
-        padding-top: calc(var(--chapter-gap) / 2);
-        padding-bottom: calc(var(--chapter-gap) / 2);
-      }
-      .properties-section.section {
-        padding-top: calc(var(--chapter-gap) / 2);
-        padding-bottom: calc(var(--chapter-gap) / 2);
-      }
-      .results-section.section {
-        padding-top: calc(var(--chapter-gap) / 2);
-        padding-bottom: calc(var(--chapter-gap) / 2);
-      }
-      .bibtex-section.section {
-        padding-top: calc(var(--chapter-gap) / 2);
-        padding-bottom: 40px;
-      }
+      .abstract-section.section { padding-top: 34px; }
+      .takeaways-section.section { padding-top: 40px; }
       .hero-section { padding: 48px 0 36px; }
       .teaser-section { padding: 32px 0 22px; }
-      .stat-row { grid-template-columns: repeat(2, 1fr); }
-      .properties-shell { flex-direction: column; }
-      .properties-col--gray {
-        border-left: none;
-        border-top: 1px solid #e8e8e8;
-      }
     }
   </style>
 </head>
@@ -884,50 +619,54 @@
 
 <nav class="navbar">
   <div class="navbar-logos">
-    <img src="./static/images/cmu_logo.png" alt="CMU" />
-    <img src="./static/images/icl_logo.jpg" alt="ICL" />
+    <img src="./static/images/cmu_logo.png" alt="Carnegie Mellon University" />
+    <img src="./static/images/icl_logo.jpg" alt="Intelligent Control Lab" />
   </div>
   <div class="navbar-links">
-    <a href="#top">Resource</a>
+    <a href="#top">Top</a>
     <a href="#abstract">Abstract</a>
     <a href="#method">Method</a>
-    <a href="#results">Results</a>
+    <a href="#skills">Skills</a>
+    <a href="#longhorizon">Long-Horizon</a>
   </div>
 </nav>
 
 <div class="page-shell">
 
 <!-- ============================================================
-     SECTION 1: HERO — 论文标题、会议、作者、链接
+     SECTION 1: HERO
      ============================================================ -->
 <section class="hero-section">
   <div class="container">
 
+    <img class="brickcraft-wordmark" src="./static/images/brickcraft/brickcraft_logo.png" alt="BrickCraft" />
+
     <h1 class="paper-title">
-      <span class="paper-title__line hl"><span class="enap">E</span>mergent <span class="enap">N</span>eural <span class="enap">A</span>utomaton <span class="enap">P</span>olicies:</span>
-      <span class="paper-title__sub hl">Learning Symbolic Structure from Visuomotor Trajectories</span>
+      <span class="paper-title__line">Visuomotor Skill Composition with Situated Manual Guidance</span>
+      <span class="paper-title__sub">for Long-Horizon Interlocking Brick Assembly</span>
     </h1>
 
     <div class="authors">
-      <span><a href="https://pyywill.github.io/" target="_blank" rel="noopener noreferrer">Yiyuan Pan</a><sup>*</sup>,</span>
-      <span><a href="https://xushengluo92.github.io/" target="_blank" rel="noopener noreferrer">Xusheng Luo</a><sup>*</sup>,</span>
-      <span><a href="https://hanjianghu.net/" target="_blank" rel="noopener noreferrer">Hanjiang Hu</a>,</span>
-      <span><a href="https://patricia1019.github.io/" target="_blank" rel="noopener noreferrer">Peiqi Yu</a>,</span>
+      <span>Jichuan Yu<sup>*</sup>,</span>
+      <span>Bowei Li<sup>*</sup>,</span>
+      <span>Zhenran Tang,</span>
+      <span>Guanxing Lu,</span>
+      <span>Ruixuan Liu,</span>
+      <span>Chuxiong Hu,</span>
       <span><a href="https://icontrol.ri.cmu.edu/people/changliu.html" target="_blank" rel="noopener noreferrer">Changliu Liu</a></span>
     </div>
 
     <div class="affiliations">
-      Robotics Institute, Carnegie Mellon University
+      Carnegie Mellon University &nbsp;·&nbsp; Tsinghua University
     </div>
 
     <div class="equal-contrib">* Equal contribution</div>
 
-    <!-- TODO: 替换各链接地址，不需要的按钮可以删除 -->
     <div class="link-buttons">
-      <a href="https://arxiv.org/pdf/2603.25903" class="link-btn link-btn--paper" target="_blank" rel="noopener noreferrer"><i class="fas fa-file-pdf"></i> Paper</a>
-      <a href="https://arxiv.org/abs/2603.25903" class="link-btn link-btn--arxiv" target="_blank" rel="noopener noreferrer"><i class="ai ai-arxiv"></i> arXiv</a>
-      <a href="https://www.youtube.com/watch?v=cdkZhygPIDQ" class="link-btn link-btn--video" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i> Video</a>
-      <a href="https://github.com/intelligent-control-lab/ENAP_controller" class="link-btn link-btn--code" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> Code</a>
+      <a href="#" class="link-btn link-btn--paper" target="_blank" rel="noopener noreferrer"><i class="fas fa-file-pdf"></i> Paper</a>
+      <a href="#" class="link-btn link-btn--arxiv" target="_blank" rel="noopener noreferrer"><i class="ai ai-arxiv"></i> arXiv</a>
+      <a href="#" class="link-btn link-btn--video" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i> Video</a>
+      <a href="#" class="link-btn link-btn--code" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> Code</a>
     </div>
 
   </div>
@@ -935,16 +674,17 @@
 
 
 <!-- ============================================================
-     SECTION 2: TEASER — 首屏展示 (GIF / 视频)
+     SECTION 2: TEASER
      ============================================================ -->
 <section class="teaser-section">
   <div class="container" style="text-align:center;">
 
-    <img class="teaser-media" src="./static/images/Teaser.jpg" alt="ENAP teaser figure" />
+    <img class="teaser-media" src="./static/images/brickcraft/teaser_figure.png" alt="BrickCraft pipeline overview: digital design → skill-oriented assembly reasoning → assembly intent grounding → compositional visuomotor execution → physical product" />
 
     <p class="teaser-caption">
-      <span class="enap">ENAP</span> enables unsupervised discovery of task structures,
-      improving both <strong><em>interpretability</em></strong> and <strong><em>task performance</em></strong>.
+      <span class="bc">BrickCraft</span> transforms a digital design into a physical product through
+      three phases &mdash; <strong>skill-oriented assembly reasoning</strong>,
+      <strong>assembly intent grounding</strong>, and <strong>compositional visuomotor execution</strong>.
     </p>
 
   </div>
@@ -952,32 +692,26 @@
 
 
 <!-- ============================================================
-     SECTION 3: ABSTRACT — 摘要
+     SECTION 3: ABSTRACT
      ============================================================ -->
 <section class="section abstract-section" id="abstract">
   <div class="container">
       <div class="section-title">Abstract</div>
       <p class="abstract-text">
-        Scaling robot learning to long-horizon tasks remains a formidable challenge.
-        While end-to-end policies often lack the structural priors needed for effective
-        long-term reasoning, traditional neuro-symbolic methods rely heavily on
-        hand-crafted symbolic priors. To address the issue, we introduce
-        <span class="enap">ENAP</span>
-        (<span class="enap">E</span>mergent <span class="enap">N</span>eural
-        <span class="enap">A</span>utomaton <span class="enap">P</span>olicy),
-        a framework that allows a bi-level neuro-symbolic policy to adaptively emerge
-        from demonstrations. Specifically, we first employ adaptive clustering and an
-        extension of the L* algorithm to infer a Mealy state machine from
-        visuomotor data, which serves as an interpretable high-level planner capturing
-        latent task modes. Then, this discrete structure guides a low-level reactive
-        residual network to learn precise continuous control via behavior cloning.
-        By explicitly modeling the task policy with discrete transitions and continuous
-        residuals, <span class="enap">ENAP</span> achieves high sample efficiency and
-        interpretability without requiring task-specific labels. Extensive experiments
-        on complex manipulation and long-horizon tasks demonstrate that
-        <span class="enap">ENAP</span> outperforms state-of-the-art end-to-end VLA
-        policies by up to 27% in low-data regimes, while offering a
-        structured representation of robotic intent.
+        Autonomous robotic assembly of interlocking bricks demands seamless integration of long-horizon
+        task reasoning, spatial grounding, and fine-grained manipulation. We present
+        <span class="bc">BrickCraft</span>, a compositional framework designed for long-horizon and
+        generalizable interlocking brick assembly. <span class="bc">BrickCraft</span> models the
+        assembly process using a relative formulation, where each step is anchored to a reference
+        brick within the partial structure, decomposing complex tasks into a finite set of reusable
+        primitive skills. To bridge the gap between high-level assembly plans and physical execution,
+        we introduce <em>situated manuals</em>, which provide explicit spatial guidance for visuomotor
+        skills by projecting the assembly intent onto real-time robot observations. Finally,
+        <span class="bc">BrickCraft</span> employs a compositional execution pipeline that chains
+        these spatially grounded skills to complete the assembly. With visuomotor skills trained on a
+        limited set of demonstrations, <span class="bc">BrickCraft</span> reliably performs
+        long-horizon assembly tasks and exhibits strong compositional generalization to unseen
+        structures.
       </p>
   </div>
 </section>
@@ -992,20 +726,31 @@
     <div class="takeaways-list">
       <div class="takeaway-item">
         <p class="takeaway-line">
-          <span class="takeaway-label">Unsupervised structure discovery from demonstrations:</span>
-          <span class="enap">ENAP</span> learns an interpretable task structure from raw visuomotor demonstrations, without requiring manually designed labels.
+          <span class="takeaway-label">Compositional framework for long-horizon assembly:</span>
+          <span class="bc">BrickCraft</span> couples high-level assembly reasoning with low-level
+          visuomotor execution to reliably complete long-horizon interlocking brick tasks.
         </p>
       </div>
       <div class="takeaway-item">
         <p class="takeaway-line">
-          <span class="takeaway-label">A unified neuro-symbolic policy with bi-level control:</span>
-          <span class="enap">ENAP</span> combines a learned probabilistic Mealy machine for high-level task progression with a residual network for precise continuous control.
+          <span class="takeaway-label">Relative task formulation &rarr; reusable primitives:</span>
+          By anchoring each step to a reference brick, we abstract diverse assembly tasks into a
+          finite set of reusable primitive skills that share representations across structures.
         </p>
       </div>
       <div class="takeaway-item">
         <p class="takeaway-line">
-          <span class="takeaway-label">Better efficiency, interpretability, and long-horizon capability:</span>
-          Across complex manipulation, long-horizon TAMP, and real-world tasks, <span class="enap">ENAP</span> improves performance in low-data regimes while providing a structured representation.
+          <span class="takeaway-label">Situated manuals for spatial grounding:</span>
+          A <em>situated manual</em> projects symbolic intents onto real-time robot observations,
+          spotlighting task-relevant entities to suppress visual ambiguity caused by repetitive
+          brick geometry.
+        </p>
+      </div>
+      <div class="takeaway-item">
+        <p class="takeaway-line">
+          <span class="takeaway-label">Strong compositional generalization:</span>
+          With limited demonstrations, <span class="bc">BrickCraft</span> achieves an 86% success
+          rate across 240 trials on 48 structures and generalizes to entirely unseen designs.
         </p>
       </div>
     </div>
@@ -1014,410 +759,442 @@
 
 
 <!-- ============================================================
-     SECTION 4: METHOD OVERVIEW — 方法图 + 说明
+     SECTION 4: METHOD OVERVIEW
      ============================================================ -->
 <section class="section method-section" id="method">
   <div class="container">
       <div class="section-title section-title--major">Method Overview</div>
 
-      <img class="method-figure" src="./static/images/MethodOverview.jpg" alt="Method overview diagram" />
-
       <div class="method-desc">
         <p>
-          <span class="enap">ENAP</span> follows a three-stage pipeline—(i) symbol
-          abstraction, (ii) structure extraction via an extended L*, and
-          (iii) bi-level control—to learn structured policies from demonstrations.
-          This design yields an interpretable probabilistic Mealy machine (PMM), which
-          provides coarse task-level structure for downstream policy network.
+          Given a 3D digital design, <span class="bc">BrickCraft</span> proceeds through three
+          phases: <strong>(i) Skill-Oriented Assembly Reasoning</strong> infers a physically feasible
+          plan via assembly-by-disassembly and maps each step to a primitive skill parameterized
+          by a relative task encoding
+          \(\tau = [\tau_x, \tau_y, \tau_z, \tau_\theta]\);
+          <strong>(ii) Assembly Intent Grounding</strong> renders a virtual visual reference,
+          aligns it with the real workspace, and overlays masks of the held brick, gripper, and
+          reference brick to form a <em>situated manual</em>; and
+          <strong>(iii) Compositional Visuomotor Execution</strong> chains a diffusion-policy
+          assembly skill with a 6D-pose pick skill, gated by pre-/post-conditions for robust
+          long-horizon execution.
         </p>
       </div>
 
-      <div class="section-title section-title--major section-title--after-block">Inference Pipeline</div>
-      <img class="result-img" src="./static/images/InferencePipeline.jpg" alt="Inference pipeline diagram" />
-      <p class="inference-desc">
-        <span class="enap">ENAP</span> resolves multi-modal decisions by leveraging a learned
-        state machine and observation-conditioned residual network. At decision points, the
-        PMM captures the available logical branches, while the residual network uses the
-        current observation to steer execution toward the branch consistent with the scene.
+      <img class="method-figure" src="./static/images/brickcraft/method_figure.png" alt="BrickCraft method: Assembly Intent Grounding + Visuomotor Skill Execution" style="margin-top:14px;" />
+
+      <p class="section-subtext" style="margin-top:14px;">
+        <strong>(a) Assembly Intent Grounding.</strong> The symbolic plan is rendered into a visual
+        reference \(I_r\) with masks \((M^{*}_{str}, M^{*}_{ref})\). YOLO-Seg extracts physical masks
+        \((M_{str}, M_{grip}, M_{tgt})\) from the live workspace observation \(I_{ws}\); ECC mask
+        alignment then maps the reference mask into the physical view as \(M_{ref}\), tracked across
+        frames by SAM 2 to form the situated manual.
+        <strong>(b) Visuomotor Skill Execution.</strong> A diffusion policy denoises an action chunk
+        from the situated manual + wrist view, the task encoding \(\tau\), and proprioceptive state
+        \((x_{ee}, q_{grip}, f_{ext})\).
       </p>
   </div>
 </section>
 
 
 <!-- ============================================================
-     SECTION 5: RESULTS — Comparison with SoTA + Qualitative
+     SECTION 5: VISUOMOTOR SKILLS — Tabs per primitive skill
      ============================================================ -->
-<section class="section results-section">
+<section class="section skills-section" id="skills">
+  <div class="container">
+    <div class="section-title section-title--major">Primitive Visuomotor Skills</div>
+    <p class="qual-hint">
+      For each primitive skill, we show <strong>10 seen</strong> and <strong>10 unseen</strong> structural configurations.
+      Videos are <em>situated-manual</em> views: the spotlit brick is the reference; the held brick is the target.
+    </p>
+    <div class="skills-stack">
+      <div class="skill-block">
+        <div class="skill-block-header">
+          <span class="skill-tau">τ = [0, 0, 1, 0]</span>
+          <span class="skill-desc">Stack target brick directly on top of the highlighted reference brick (+1 stud z, no x/y/θ offset).</span>
+        </div>
+        <div class="skill-row">
+          <div class="skill-row-label">Seen</div>
+          <div class="skill-grid">
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_000_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_000_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_001_5_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_001_5_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_002_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_002_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_003_2_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_003_2_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_004_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_004_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_005_2_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_005_2_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_006_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_006_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_007_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_007_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-row-label skill-row-label--unseen">Unseen</div>
+          <div class="skill-grid">
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_000_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_000_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_001_2_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_001_2_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_002_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_002_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_003_2_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_003_2_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_004_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_004_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_005_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_005_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_006_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_006_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_007_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_007_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-block-header">
+          <span class="skill-tau">τ = [1, 0, 1, 0]</span>
+          <span class="skill-desc">Place target brick offset by 1 stud in x, then stack on top of the reference (+1 z).</span>
+        </div>
+        <div class="skill-row">
+          <div class="skill-row-label">Seen</div>
+          <div class="skill-grid">
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_000_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_000_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_001_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_001_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_002_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_002_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_003_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_003_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_004_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_004_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_005_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_005_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_006_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_006_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_007_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_007_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-row-label skill-row-label--unseen">Unseen</div>
+          <div class="skill-grid">
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_000_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_000_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_001_2_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_001_2_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_002_2_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_002_2_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_003_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_003_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_004_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_004_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_005_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_005_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_006_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_006_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_007_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_007_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-block">
+        <div class="skill-block-header">
+          <span class="skill-tau">τ = [2, 0, 0, 0]</span>
+          <span class="skill-desc">Place target brick at the same level as the reference, offset by 2 studs in x.</span>
+        </div>
+        <div class="skill-row">
+          <div class="skill-row-label">Seen</div>
+          <div class="skill-grid">
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_000_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_000_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_001_5_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_001_5_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_002_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_002_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_003_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_003_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_004_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_004_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_005_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_005_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_006_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_006_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_007_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_007_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-row-label skill-row-label--unseen">Unseen</div>
+          <div class="skill-grid">
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_000_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_000_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_001_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_001_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_002_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_002_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_003_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_003_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_004_5_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_004_5_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_005_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_005_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_006_5_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_006_5_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+            <div class="skill-pair">
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_007_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
+              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_007_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SM</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="section-subtext" style="margin-top:18px;">
+      Each primitive skill is a diffusion policy conditioned on the situated manual,
+      a wrist-camera view, proprioceptive state, external forces, and the task encoding \(\tau\).
+      A single policy handles diverse assembly behaviors by switching <em>which</em>
+      reference brick the situated manual highlights.
+    </p>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION 6: LONG-HORIZON ASSEMBLY
+     ============================================================ -->
+<section class="section results-section" id="longhorizon">
   <div class="container">
 
-    <div class="result-block" id="results">
-      <div class="section-title section-title--major">Comparison with SoTA</div>
-
-      <div class="tables-grid">
-        <!-- LEFT: Table 1 -->
-        <div class="table-block table-block--left">
-          <div class="table-caption">Complex Manipulation Tasks</div>
-          <div class="result-table-wrapper">
-            <table class="result-table result-table--sm">
-              <thead>
-                <tr>
-                  <th rowspan="2">Method</th>
-                  <th rowspan="2">Param (M)</th>
-                  <th>DualStack</th>
-                  <th>Peg</th>
-                </tr>
-                <tr>
-                  <th>Cube (%)</th>
-                  <th>Insert (%)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Oracle</td>
-                  <td>2.98</td>
-                  <td>98.3 <small>±0.4</small></td>
-                  <td>86.7 <small>±0.8</small></td>
-                </tr>
-                <tr>
-                  <td>Transformer</td>
-                  <td>63.81</td>
-                  <td>38.7 <small>±6.0</small></td>
-                  <td>51.8 <small>±5.5</small></td>
-                </tr>
-                <tr>
-                  <td>GMM</td>
-                  <td>46.11</td>
-                  <td>73.6 <small>±2.3</small></td>
-                  <td>53.1 <small>±2.6</small></td>
-                </tr>
-                <tr>
-                  <td>Diffusion Policy</td>
-                  <td>114.39</td>
-                  <td>41.2 <small>±7.2</small></td>
-                  <td>31.1 <small>±6.8</small></td>
-                </tr>
-                <tr>
-                  <td>OpenVLA</td>
-                  <td>7652.10</td>
-                  <td>69.8 <small>±2.0</small></td>
-                  <td>42.3 <small>±2.8</small></td>
-                </tr>
-                <tr>
-                  <td>\(\pi_0\)</td>
-                  <td>3288.52</td>
-                  <td>73.4 <small>±1.2</small></td>
-                  <td>51.6 <small>±1.4</small></td>
-                </tr>
-                <tr class="result-row--ours">
-                  <td><span class="enap">ENAP</span> (Oracle)</td>
-                  <td class="best">2.66</td>
-                  <td>98.8 <small>±0.3</small></td>
-                  <td>85.6 <small>±0.6</small></td>
-                </tr>
-                <tr class="result-row--ours">
-                  <td><span class="enap">ENAP</span>* (DINO)</td>
-                  <td>22.94</td>
-                  <td class="best">76.0 <small>±2.0</small></td>
-                  <td class="best">63.2 <small>±2.4</small></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-        </div>
-
-        <!-- RIGHT: Table 2 + Table 3 — top/bottom aligned with left column -->
-        <div class="table-block table-block--right">
-          <div class="table-block__stack">
-            <div class="table-caption">Long-Horizon TAMP Tasks</div>
-            <div class="result-table-wrapper">
-              <table class="result-table result-table--sm">
-                <thead>
-                  <tr>
-                    <th rowspan="2">Method</th>
-                    <th colspan="2">Seq. (%)</th>
-                    <th colspan="2">Hier. (%)</th>
-                  </tr>
-                  <tr>
-                    <th>3/5</th>
-                    <th>5/5</th>
-                    <th>3/5</th>
-                    <th>5/5</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>FLOWER</td>
-                    <td>91.0 <small>±0.6</small></td>
-                    <td>90.6 <small>±0.5</small></td>
-                    <td>90.8 <small>±0.7</small></td>
-                    <td>15.9 <small>±0.4</small></td>
-                  </tr>
-                  <tr class="result-row--ours">
-                    <td><span class="enap">ENAP</span> (FLOWER)</td>
-                    <td class="best">97.0 <small>±0.4</small></td>
-                    <td class="best">96.8 <small>±0.3</small></td>
-                    <td class="best">95.5 <small>±0.5</small></td>
-                    <td class="best">28.2 <small>±0.6</small></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="table-block__stack">
-            <div class="table-caption">Real-World Evaluation</div>
-            <div class="result-table-wrapper">
-              <table class="result-table result-table--sm">
-                <thead>
-                  <tr>
-                    <th rowspan="2">Method</th>
-                    <th rowspan="2">Param (M)</th>
-                    <th rowspan="2">Speed (ms)</th>
-                    <th>Stack</th>
-                    <th>Pick</th>
-                    <th>Hanger</th>
-                  </tr>
-                  <tr>
-                    <th>Lego</th>
-                    <th>Place</th>
-                    <th>Task</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>\(\pi_{0.5}\)</td>
-                    <td>3403</td>
-                    <td>6841</td>
-                    <td>58.82</td>
-                    <td>76.47</td>
-                    <td>64.71</td>
-                  </tr>
-                  <tr class="result-row--ours">
-                    <td><span class="enap">ENAP</span>* (DINO)</td>
-                    <td>23</td>
-                    <td>281</td>
-                    <td class="best">88.24</td>
-                    <td class="best">94.12</td>
-                    <td class="best">94.12</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <p class="section-subtext section-subtext--after-block">
-        <span class="enap">ENAP</span> consistently achieves stronger performance–efficiency
-        trade-offs than prior baselines across complex manipulation, long-horizon TAMP, and
-        real-world evaluation, while using substantially fewer parameters and enabling
-        structured interpretation.
-      </p>
-    </div>
-
-    <!-- 5c. Qualitative Results — 左侧竖向 Tab + 右侧内容 -->
-    <div class="section-title section-title--major section-title--spaced">Qualitative Results</div>
-    <p class="qual-hint">Click a task tab on the left to play videos.</p>
-
-    <div class="qual-panel">
-      <div class="qual-tabs">
-        <button class="qual-tab qual-tab--active" data-task="stacklego">
-          <span>StackLego</span>
-        </button>
-        <button class="qual-tab" data-task="hanger">
-          <span>Hanger</span>
-        </button>
-        <button class="qual-tab" data-task="multigoal">
-          <span>MultiGoalPickPlace</span>
-        </button>
-      </div>
-
-      <div class="qual-content">
-        <!-- StackLego -->
-        <div class="qual-pane qual-pane--active" id="pane-stacklego">
-          <div class="task-card">
-            <video class="result-img qual-video" muted playsinline preload="metadata">
-              <source src="./static/videos/stacklego.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="sm-video-label">Real-time PMM Transition</div>
-          <div class="task-card">
-            <video class="qual-video" muted playsinline preload="metadata" style="width:100%; aspect-ratio:2.45; display:block;">
-              <source src="./static/videos/sm_lego.mp4" type="video/mp4" />
-            </video>
-          </div>
-        </div>
-
-        <!-- Hanger -->
-        <div class="qual-pane" id="pane-hanger">
-          <div class="task-card">
-            <video class="result-img qual-video" muted playsinline preload="metadata">
-              <source src="./static/videos/hanger.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="sm-video-label">Real-time PMM Transition</div>
-          <div class="task-card">
-            <video class="qual-video" muted playsinline preload="metadata" style="width:100%; aspect-ratio:2.45; display:block;">
-              <source src="./static/videos/sm_hanger.mp4" type="video/mp4" />
-            </video>
-          </div>
-        </div>
-
-        <!-- MultiGoalPickPlace -->
-        <div class="qual-pane" id="pane-multigoal">
-          <div class="task-card">
-            <video class="result-img qual-video" muted playsinline preload="metadata">
-              <source src="./static/videos/multigoal.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div class="sm-video-label">Real-time PMM Transition</div>
-          <div class="task-card">
-            <video class="qual-video" muted playsinline preload="metadata" style="width:100%; aspect-ratio:2.45; display:block;">
-              <source src="./static/videos/sm_multi.mp4" type="video/mp4" />
-            </video>
-          </div>
-        </div>
-      </div>
-
-      <!-- Cluster image grid (right side) -->
-      <div class="qual-cluster-panel">
-        <!-- StackLego clusters (shown by default) -->
-        <div class="cluster-pane cluster-pane--active" id="cluster-stacklego">
-          <div class="cluster-grid cluster-grid--9">
-            <div class="cluster-cell"><img src="./static/images/StackLego/L_c0.png" alt="Cluster 0" /><div class="cluster-label">Cluster 0</div></div>
-            <div class="cluster-cell"><img src="./static/images/StackLego/L_c1.png" alt="Cluster 1" /><div class="cluster-label">Cluster 1</div></div>
-            <div class="cluster-cell"><img src="./static/images/StackLego/L_c2.png" alt="Cluster 2" /><div class="cluster-label">Cluster 2</div></div>
-            <div class="cluster-cell"><img src="./static/images/StackLego/L_c3.png" alt="Cluster 3" /><div class="cluster-label">Cluster 3</div></div>
-            <div class="cluster-cell"><img src="./static/images/StackLego/L_c4.png" alt="Cluster 4" /><div class="cluster-label">Cluster 4</div></div>
-            <div class="cluster-cell"><img src="./static/images/StackLego/L_c5.png" alt="Cluster 5" /><div class="cluster-label">Cluster 5</div></div>
-            <div class="cluster-cell"><img src="./static/images/StackLego/L_c6.png" alt="Cluster 6" /><div class="cluster-label">Cluster 6</div></div>
-            <div class="cluster-cell"></div>
-            <div class="cluster-cell"></div>
-          </div>
-          <p class="cluster-task-desc">
-            StackLego is a high-precision assembly task where a blue brick must be placed onto a fixed red brick without force feedback, evaluated by graded stacking success.
-          </p>
-        </div>
-        <!-- Hanger clusters -->
-        <div class="cluster-pane" id="cluster-hanger">
-          <div class="cluster-grid cluster-grid--9">
-            <div class="cluster-cell"><img src="./static/images/Hanger/H_c0.png" alt="Cluster 0" /><div class="cluster-label">Cluster 0</div></div>
-            <div class="cluster-cell"><img src="./static/images/Hanger/H_c1.png" alt="Cluster 1" /><div class="cluster-label">Cluster 1</div></div>
-            <div class="cluster-cell"><img src="./static/images/Hanger/H_c2.png" alt="Cluster 2" /><div class="cluster-label">Cluster 2</div></div>
-            <div class="cluster-cell"><img src="./static/images/Hanger/H_c3.png" alt="Cluster 3" /><div class="cluster-label">Cluster 3</div></div>
-            <div class="cluster-cell"><img src="./static/images/Hanger/H_c4.png" alt="Cluster 4" /><div class="cluster-label">Cluster 4</div></div>
-            <div class="cluster-cell"></div>
-            <div class="cluster-cell"></div>
-            <div class="cluster-cell"></div>
-            <div class="cluster-cell"></div>
-          </div>
-          <p class="cluster-task-desc">
-            Hanger is a manipulation task requiring the agent to unhook a hanger and transfer it across an obstacle to the opposite side of a rack.
-          </p>
-        </div>
-        <!-- MultiGoal clusters -->
-        <div class="cluster-pane" id="cluster-multigoal">
-          <div class="cluster-grid cluster-grid--9">
-            <div class="cluster-cell"><img src="./static/images/MultiGoal/M_c0.png" alt="Cluster 0" /><div class="cluster-label">Cluster 0</div></div>
-            <div class="cluster-cell"><img src="./static/images/MultiGoal/M_c1.png" alt="Cluster 1" /><div class="cluster-label">Cluster 1</div></div>
-            <div class="cluster-cell"><img src="./static/images/MultiGoal/M_c2.png" alt="Cluster 2" /><div class="cluster-label">Cluster 2</div></div>
-            <div class="cluster-cell"><img src="./static/images/MultiGoal/M_c3.png" alt="Cluster 3" /><div class="cluster-label">Cluster 3</div></div>
-            <div class="cluster-cell"><img src="./static/images/MultiGoal/M_c4.png" alt="Cluster 4" /><div class="cluster-label">Cluster 4</div></div>
-            <div class="cluster-cell"><img src="./static/images/MultiGoal/M_c5.png" alt="Cluster 5" /><div class="cluster-label">Cluster 5</div></div>
-            <div class="cluster-cell"><img src="./static/images/MultiGoal/M_c6.png" alt="Cluster 6" /><div class="cluster-label">Cluster 6</div></div>
-            <div class="cluster-cell"><img src="./static/images/MultiGoal/M_c7.png" alt="Cluster 7" /><div class="cluster-label">Cluster 7</div></div>
-            <div class="cluster-cell"><img src="./static/images/MultiGoal/M_c8.png" alt="Cluster 8" /><div class="cluster-label">Cluster 8</div></div>
-          </div>
-          <p class="cluster-task-desc">
-            MultiGoalPickPlace is a sorting task where the agent must match and place multiple colored cans into their corresponding bowls.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <p class="section-subtext section-subtext--after-block">
-      We visualize real execution together with the extracted PMM and discovered clusters,
-      showing how <span class="enap">ENAP</span> recovers interpretable task phases and
-      branching structure for high-precision manipulation
-      (<em>Real-time PMM Transition</em>: visited nodes and edges are highlighted in blue).
+    <div class="section-title section-title--major">Long-Horizon Assembly</div>
+    <p class="section-subtext">
+      Given a target structure, <span class="bc">BrickCraft</span> autonomously generates an
+      assembly plan, then chains pick and assembly skills. Each step is gated by pre-/post-condition
+      checks that align the live observation with the symbolic plan, preventing compounding drift.
     </p>
 
-  </div>
-</section>
-
-
-<!-- ============================================================
-     PROPERTIES (after Qualitative; card layout like qual-panel)
-     ============================================================ -->
-<section class="section properties-section" id="properties">
-  <div class="container">
-    <div class="section-title section-title--major">Properties</div>
-    <div class="properties-shell">
-      <div class="properties-col properties-col--white">
-        <div class="properties-white-top">
-          <div class="table-caption">MultiGoalPushT Performance Comparison</div>
-          <div class="result-table-wrapper">
-            <table class="result-table result-table--sm">
-              <thead>
-                <tr>
-                  <th>Metric (%)</th>
-                  <th>DP</th>
-                  <th>GMM</th>
-                  <th>\(\pi_0\)</th>
-                  <th>ENAP (Oracle)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Either</td>
-                  <td>0.41 <small>±0.05</small></td>
-                  <td>0.50 <small>±0.05</small></td>
-                  <td>0.25 <small>±0.02</small></td>
-                  <td><strong>0.94 <small>±0.03</small></strong></td>
-                </tr>
-                <tr>
-                  <td>Nearest</td>
-                  <td>0.38 <small>±0.07</small></td>
-                  <td>0.38 <small>±0.03</small></td>
-                  <td>0.13 <small>±0.04</small></td>
-                  <td><strong>0.84 <small>±0.02</small></strong></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <img class="properties-figure" src="./static/images/Retry.jpg" alt="Structural recovery and retry behavior illustration" />
+    <div class="longhorizon-grid">
+      <div class="lh-card">
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="./static/videos/brickcraft/longhorizon/pyramid.mp4" type="video/mp4" />
+        </video>
+        <div class="lh-card-label">Pyramid</div>
       </div>
-      <div class="properties-col properties-col--gray">
-        <div class="properties-text-block">
-          <p class="property-line">
-            <span class="property-label">Generalization via Policy Mixtures:</span>
-            <span class="enap">ENAP</span> separates mixed demonstrations into distinct logical branches while preserving shared skills. This allows a single policy to handle multiple valid strategies.
-          </p>
+      <div class="lh-card">
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="./static/videos/brickcraft/longhorizon/stairs.mp4" type="video/mp4" />
+        </video>
+        <div class="lh-card-label">Stairs</div>
+      </div>
+      <div class="lh-card">
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="./static/videos/brickcraft/longhorizon/gate.mp4" type="video/mp4" />
+        </video>
+        <div class="lh-card-label">Gate</div>
+      </div>
+    </div>
+
+    <div class="section-title section-title--major section-title--spaced">Quantitative Results</div>
+
+    <div class="tables-grid">
+      <div class="table-block">
+        <div class="table-caption">Single-step success rate (%) across primitive skills</div>
+        <div class="result-table-wrapper">
+          <table class="result-table result-table--sm">
+            <thead>
+              <tr>
+                <th rowspan="2">Method</th>
+                <th colspan="2">τ = [0,0,1,0]</th>
+                <th colspan="2">τ = [2,0,0,0]</th>
+                <th colspan="2">τ = [1,0,1,0]</th>
+              </tr>
+              <tr>
+                <th>Seen</th><th>Unseen</th>
+                <th>Seen</th><th>Unseen</th>
+                <th>Seen</th><th>Unseen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>GI-DP</td>
+                <td>47.5</td><td>32.5</td>
+                <td>40.0</td><td>25.0</td>
+                <td>45.0</td><td>32.5</td>
+              </tr>
+              <tr>
+                <td>GI-π<sub>0.5</sub></td>
+                <td>50.0</td><td>47.5</td>
+                <td>42.5</td><td>47.5</td>
+                <td>42.5</td><td>40.0</td>
+              </tr>
+              <tr class="result-row--ours">
+                <td><span class="bc">BrickCraft</span></td>
+                <td class="best">90.0</td><td class="best">85.0</td>
+                <td class="best">92.5</td><td class="best">85.0</td>
+                <td class="best">82.5</td><td class="best">82.5</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="properties-text-block">
-          <p class="property-line">
-            <span class="property-label">Recovery via Structural Loops:</span>
-            <span class="enap">ENAP</span> can enable autonomous retry behavior. When execution does not trigger the next phase, the controller can remain in the same phase and re-attempt correction.
-          </p>
+      </div>
+
+      <div class="table-block">
+        <div class="table-caption">Long-horizon completion (correct / total bricks)</div>
+        <div class="result-table-wrapper">
+          <table class="result-table result-table--sm">
+            <thead>
+              <tr>
+                <th>Structure</th>
+                <th>Bricks</th>
+                <th>Avg. Completed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Pyramid</td>
+                <td>6</td>
+                <td>6.00 / 6</td>
+              </tr>
+              <tr>
+                <td>Stairs</td>
+                <td>10</td>
+                <td>9.17 / 10</td>
+              </tr>
+              <tr>
+                <td>House</td>
+                <td>10</td>
+                <td>8.83 / 10</td>
+              </tr>
+              <tr>
+                <td>Castle <small>(unseen)</small></td>
+                <td>11</td>
+                <td>8.50 / 11</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
+
+    <p class="section-subtext" style="margin-top:18px;">
+      <span class="bc">BrickCraft</span> achieves an overall <strong>86.25%</strong> single-step
+      success rate across 240 trials on 48 distinct structures, and reliably composes these skills
+      into long-horizon assemblies&mdash;including structures unseen during training.
+    </p>
   </div>
 </section>
 
 
 <!-- ============================================================
-     SECTION 6: BIBTEX
+     SECTION 7: BIBTEX
      ============================================================ -->
 <section class="section bibtex-section">
   <div class="container">
     <div class="section-title">BibTeX</div>
     <div class="bibtex-block">
-      <pre id="bibtex-content">@article{pan2026emergent,
-  title={Emergent Neural Automaton Policies: Learning Symbolic Structure from Visuomotor Trajectories},
-  author={Pan, Yiyuan and Luo, Xusheng and Hu, Hanjiang and Yu, Peiqi and Liu, Changliu},
-  journal={arXiv preprint arXiv:2603.25903},
+      <button class="copy-btn" id="copy-bib">Copy</button>
+      <pre id="bibtex-content">@article{yu2026brickcraft,
+  title={BrickCraft: Visuomotor Skill Composition with Situated Manual Guidance for Long-Horizon Interlocking Brick Assembly},
+  author={Yu, Jichuan and Li, Bowei and Tang, Zhenran and Lu, Guanxing and Liu, Ruixuan and Hu, Chuxiong and Liu, Changliu},
   year={2026}
 }</pre>
     </div>
@@ -1438,20 +1215,50 @@
 </div><!-- /.page-shell -->
 
 <script>
-document.querySelectorAll('.qual-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.qual-tab').forEach(t => t.classList.remove('qual-tab--active'));
-    document.querySelectorAll('.qual-pane').forEach(p => p.classList.remove('qual-pane--active'));
-    document.querySelectorAll('.qual-video').forEach(v => { v.pause(); v.currentTime = 0; });
-    tab.classList.add('qual-tab--active');
-    const pane = document.getElementById('pane-' + tab.dataset.task);
-    pane.classList.add('qual-pane--active');
-    pane.querySelectorAll('.qual-video').forEach(v => { v.currentTime = 0; v.play(); });
-    document.querySelectorAll('.cluster-pane').forEach(p => p.classList.remove('cluster-pane--active'));
-    const cp = document.getElementById('cluster-' + tab.dataset.task);
-    if (cp) cp.classList.add('cluster-pane--active');
+// Lazy-load + autoplay skill clips when they enter the viewport.
+// Pause + unload when out of viewport to keep memory low.
+(() => {
+  const clips = document.querySelectorAll('video.skill-clip');
+  if (!clips.length) return;
+
+  const load = (video) => {
+    const src = video.querySelector('source[data-src]');
+    if (src && !src.src) {
+      src.src = src.dataset.src;
+      video.load();
+    }
+    const p = video.play();
+    if (p && p.catch) p.catch(() => {});
+  };
+  const unload = (video) => {
+    video.pause();
+  };
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) load(e.target);
+        else unload(e.target);
+      });
+    }, { rootMargin: '200px 0px', threshold: 0.05 });
+    clips.forEach((v) => io.observe(v));
+  } else {
+    clips.forEach(load);
+  }
+})();
+
+// Copy BibTeX
+const copyBtn = document.getElementById('copy-bib');
+if (copyBtn) {
+  copyBtn.addEventListener('click', () => {
+    const text = document.getElementById('bibtex-content').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = copyBtn.textContent;
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => { copyBtn.textContent = orig; }, 1500);
+    });
   });
-});
+}
 </script>
 
 </body>
