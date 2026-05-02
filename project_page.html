@@ -298,13 +298,13 @@
       color: var(--text);
     }
 
-    /* ========== Skills showcase (flat dense grid) ========== */
+    /* ========== Skills showcase (marquee strip per skill) ========== */
     .skill-block {
       border: 1px solid #ececec;
       border-radius: var(--radius-sm);
       background: #fafafa;
-      padding: 18px 20px 20px;
-      margin-bottom: 20px;
+      padding: 16px 18px 14px;
+      margin-bottom: 16px;
     }
     .skill-block:last-child { margin-bottom: 0; }
 
@@ -313,9 +313,7 @@
       flex-wrap: wrap;
       align-items: baseline;
       gap: 10px 14px;
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px dashed #dcdcdc;
+      margin-bottom: 12px;
     }
     .skill-tau {
       font-family: "STIX Two Math", "Times New Roman", serif;
@@ -330,12 +328,14 @@
       line-height: 1.5;
     }
 
+    /* Marquee strip: a wide hstacked video that auto-scrolls left.
+       The video is rendered twice side-by-side so the loop is seamless. */
     .skill-row {
       display: grid;
       grid-template-columns: 64px 1fr;
       gap: 10px;
       align-items: stretch;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .skill-row:last-child { margin-bottom: 0; }
     .skill-row-label {
@@ -353,42 +353,35 @@
     }
     .skill-row-label--unseen { background: #e0eaf3; color: #28466b; }
 
-    .skill-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      column-gap: 8px;
-      row-gap: 8px;
-    }
-    .skill-pair {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-    }
-    .skill-clip-cell {
-      position: relative;
-      display: block;
-    }
-    .skill-clip-cell video {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      display: block;
+    .skill-marquee {
+      overflow: hidden;
+      border-radius: 4px;
       background: #000;
-      border-radius: 3px;
+      position: relative;
+      height: 110px;
     }
-    .skill-clip-tag {
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      font-size: 0.58rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      color: #fff;
-      background: rgba(0,0,0,0.55);
-      padding: 1px 5px;
-      border-radius: 3px;
+    .skill-marquee-track {
+      display: flex;
+      width: max-content;
+    }
+    .skill-marquee--left  .skill-marquee-track { animation: skill-scroll-left  32s linear infinite; }
+    .skill-marquee--right .skill-marquee-track { animation: skill-scroll-right 32s linear infinite; }
+    .skill-marquee video {
+      height: 110px;
+      width: auto;
+      display: block;
+      flex-shrink: 0;
       pointer-events: none;
-      text-transform: uppercase;
+    }
+    @keyframes skill-scroll-left  { from { transform: translateX(0); }   to { transform: translateX(-50%); } }
+    @keyframes skill-scroll-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+    @media (prefers-reduced-motion: reduce) {
+      .skill-marquee-track { animation: none; }
+    }
+    @media (max-width: 700px) {
+      .skill-row { grid-template-columns: 1fr; gap: 6px; }
+      .skill-row-label { padding: 3px 8px; }
+      .skill-marquee, .skill-marquee video { height: 84px; }
     }
 
     .qual-hint {
@@ -400,13 +393,8 @@
       font-style: italic;
     }
 
-    @media (max-width: 900px) {
-      .skill-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 540px) {
-      .skill-row { grid-template-columns: 1fr; gap: 6px; }
-      .skill-row-label { padding: 3px 8px; }
-      .skill-grid { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 700px) {
+      .skill-marquee, .skill-marquee video { height: 96px; }
     }
 
     /* ========== Long-horizon ========== */
@@ -804,87 +792,30 @@
   <div class="container">
     <div class="section-title section-title--major">Primitive Visuomotor Skills</div>
     <p class="qual-hint">
-      For each primitive skill, we show <strong>8 seen</strong> and <strong>8 unseen</strong> structural configurations.
-      Each pair: <em>raw</em> camera observation on the left, <em>seg</em> (situated-manual) view on the right &mdash;
-      the spotlit brick is the reference, the held brick is the target.
+      For each primitive skill, the marquee shows <strong>8 seen</strong> + <strong>8 unseen</strong> situated-manual
+      views looping across &mdash; the spotlit brick is the reference, the held brick is the target.
     </p>
     <div class="skills-stack">
       <div class="skill-block">
         <div class="skill-block-header">
           <span class="skill-tau">τ = [0, 0, 1, 0]</span>
-          <span class="skill-desc">Stack target brick directly on top of the highlighted reference brick (+1 stud z, no x/y/θ offset).</span>
+          <span class="skill-desc">Stack target brick directly on top of the highlighted reference brick.</span>
         </div>
         <div class="skill-row">
           <div class="skill-row-label">Seen</div>
-          <div class="skill-grid">
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_000_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_000_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_001_5_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_001_5_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_002_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_002_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_003_2_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_003_2_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_004_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_004_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_005_2_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_005_2_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_006_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_006_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_007_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_seen_007_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
+          <div class="skill-marquee skill-marquee--right">
+            <div class="skill-marquee-track">
+              <video class="skill-strip" src="./static/videos/brickcraft/skills/skill_strip_0010_seen.mp4" autoplay muted loop playsinline preload="auto"></video>
+              <video class="skill-strip" src="./static/videos/brickcraft/skills/skill_strip_0010_seen.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
             </div>
           </div>
         </div>
         <div class="skill-row">
           <div class="skill-row-label skill-row-label--unseen">Unseen</div>
-          <div class="skill-grid">
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_000_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_000_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_001_2_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_001_2_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_002_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_002_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_003_2_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_003_2_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_004_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_004_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_005_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_005_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_006_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_006_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_007_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/0010_unseen_007_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
+          <div class="skill-marquee skill-marquee--left">
+            <div class="skill-marquee-track">
+              <video class="skill-strip" src="./static/videos/brickcraft/skills/skill_strip_0010_unseen.mp4" autoplay muted loop playsinline preload="auto"></video>
+              <video class="skill-strip" src="./static/videos/brickcraft/skills/skill_strip_0010_unseen.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
             </div>
           </div>
         </div>
@@ -892,79 +823,23 @@
       <div class="skill-block">
         <div class="skill-block-header">
           <span class="skill-tau">τ = [1, 0, 1, 0]</span>
-          <span class="skill-desc">Place target brick offset by 1 stud in x, then stack on top of the reference (+1 z).</span>
+          <span class="skill-desc">Place target brick offset by 1 stud in x, then stack on top of the reference.</span>
         </div>
         <div class="skill-row">
           <div class="skill-row-label">Seen</div>
-          <div class="skill-grid">
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_000_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_000_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_001_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_001_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_002_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_002_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_003_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_003_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_004_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_004_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_005_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_005_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_006_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_006_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_007_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_seen_007_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
+          <div class="skill-marquee skill-marquee--right">
+            <div class="skill-marquee-track">
+              <video class="skill-strip" src="./static/videos/brickcraft/skills/skill_strip_1010_seen.mp4" autoplay muted loop playsinline preload="auto"></video>
+              <video class="skill-strip" src="./static/videos/brickcraft/skills/skill_strip_1010_seen.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
             </div>
           </div>
         </div>
         <div class="skill-row">
           <div class="skill-row-label skill-row-label--unseen">Unseen</div>
-          <div class="skill-grid">
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_000_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_000_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_001_2_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_001_2_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_002_2_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_002_2_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_003_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_003_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_004_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_004_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_005_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_005_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_006_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_006_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_007_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/1010_unseen_007_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
+          <div class="skill-marquee skill-marquee--left">
+            <div class="skill-marquee-track">
+              <video class="skill-strip" src="./static/videos/brickcraft/skills/skill_strip_1010_unseen.mp4" autoplay muted loop playsinline preload="auto"></video>
+              <video class="skill-strip" src="./static/videos/brickcraft/skills/skill_strip_1010_unseen.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
             </div>
           </div>
         </div>
@@ -976,75 +851,19 @@
         </div>
         <div class="skill-row">
           <div class="skill-row-label">Seen</div>
-          <div class="skill-grid">
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_000_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_000_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_001_5_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_001_5_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_002_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_002_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_003_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_003_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_004_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_004_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_005_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_005_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_006_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_006_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_007_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_seen_007_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
+          <div class="skill-marquee skill-marquee--right">
+            <div class="skill-marquee-track">
+              <video class="skill-strip" src="./static/videos/brickcraft/skills/skill_strip_2000_seen.mp4" autoplay muted loop playsinline preload="auto"></video>
+              <video class="skill-strip" src="./static/videos/brickcraft/skills/skill_strip_2000_seen.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
             </div>
           </div>
         </div>
         <div class="skill-row">
           <div class="skill-row-label skill-row-label--unseen">Unseen</div>
-          <div class="skill-grid">
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_000_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_000_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_001_3_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_001_3_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_002_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_002_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_003_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_003_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_004_5_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_004_5_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_005_1_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_005_1_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_006_5_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_006_5_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
-            </div>
-            <div class="skill-pair">
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_007_4_fixed_trim_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">raw</span></div>
-              <div class="skill-clip-cell"><video class="skill-clip" muted loop playsinline preload="none"><source data-src="./static/videos/brickcraft/skills/2000_unseen_007_4_fixed_seg_crop_2x.mp4" type="video/mp4" /></video><span class="skill-clip-tag">SEG</span></div>
+          <div class="skill-marquee skill-marquee--left">
+            <div class="skill-marquee-track">
+              <video class="skill-strip" src="./static/videos/brickcraft/skills/skill_strip_2000_unseen.mp4" autoplay muted loop playsinline preload="auto"></video>
+              <video class="skill-strip" src="./static/videos/brickcraft/skills/skill_strip_2000_unseen.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
             </div>
           </div>
         </div>
@@ -1218,38 +1037,6 @@
 </div><!-- /.page-shell -->
 
 <script>
-// Lazy-load + autoplay skill clips when they enter the viewport.
-// Pause + unload when out of viewport to keep memory low.
-(() => {
-  const clips = document.querySelectorAll('video.skill-clip');
-  if (!clips.length) return;
-
-  const load = (video) => {
-    const src = video.querySelector('source[data-src]');
-    if (src && !src.src) {
-      src.src = src.dataset.src;
-      video.load();
-    }
-    const p = video.play();
-    if (p && p.catch) p.catch(() => {});
-  };
-  const unload = (video) => {
-    video.pause();
-  };
-
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) load(e.target);
-        else unload(e.target);
-      });
-    }, { rootMargin: '200px 0px', threshold: 0.05 });
-    clips.forEach((v) => io.observe(v));
-  } else {
-    clips.forEach(load);
-  }
-})();
-
 // Copy BibTeX
 const copyBtn = document.getElementById('copy-bib');
 if (copyBtn) {
