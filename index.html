@@ -600,6 +600,70 @@
       .hero-section { padding: 48px 0 36px; }
       .teaser-section { padding: 32px 0 22px; }
     }
+
+    /* ========== Related Works ========== */
+    .related-works-section .section-title { text-align: center; }
+    .related-works-intro {
+      text-align: center;
+      margin: 0 auto 28px;
+      max-width: 760px;
+      color: #333;
+      line-height: 1.55;
+    }
+    .rw-list {
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .rw-item {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+    .rw-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #f5f5f5;
+    }
+    .rw-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .rw-title {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 0 0 6px;
+      color: var(--brick);
+      line-height: 1.35;
+    }
+    .rw-authors { margin: 0 0 4px; font-size: 0.9rem; line-height: 1.5; color: #333; }
+    .rw-venue { margin: 0 0 10px; font-size: 0.85rem; color: #666; font-style: italic; }
+    .rw-links { margin: 0; }
+    .rw-btn {
+      display: inline-block;
+      padding: 5px 14px;
+      margin-right: 6px;
+      background: var(--brick);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: opacity 0.15s;
+    }
+    .rw-btn:hover { opacity: 0.85; }
+    @media (max-width: 720px) {
+      .rw-item { grid-template-columns: 1fr; }
+      .rw-thumb { max-width: 320px; margin: 0 auto; }
+    }
   </style>
 </head>
 
@@ -652,7 +716,7 @@
 
     <div class="link-buttons">
       <a href="#" class="link-btn link-btn--paper" target="_blank" rel="noopener noreferrer"><i class="fas fa-file-pdf"></i> Paper</a>
-      <a href="#" class="link-btn link-btn--arxiv" target="_blank" rel="noopener noreferrer"><i class="ai ai-arxiv"></i> arXiv</a>
+      <a href="http://arxiv.org/abs/2605.07605" class="link-btn link-btn--arxiv" target="_blank" rel="noopener noreferrer"><i class="ai ai-arxiv"></i> arXiv</a>
       <a href="https://www.youtube.com/watch?v=qx-bElwitVI" class="link-btn link-btn--video" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i> Video</a>
       <a href="#" class="link-btn link-btn--code" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> Code (Coming Soon)</a>
     </div>
@@ -970,7 +1034,129 @@
 
 
 <!-- ============================================================
-     SECTION 7: BIBTEX
+     SECTION 7: RELATED WORKS
+     ============================================================ -->
+<section class="section related-works-section" id="related-works">
+  <div class="container">
+    <div class="section-title section-title--major">Related Works</div>
+    <p class="related-works-intro">
+      This work is part of our research on
+      <a href="http://icontrol.ri.cmu.edu/research/lego.html" target="_blank" rel="noopener noreferrer">Generative Assembly via Bimanual Manipulation</a>.
+      Please explore our other works below.
+    </p>
+
+    <div class="rw-list">
+
+      <div class="rw-item">
+        <div class="rw-thumb">
+          <img src="https://intelligent-control-lab.github.io/BrickSim/resources/BrickSim_teaser.jpg" alt="BrickSim">
+        </div>
+        <div class="rw-text">
+          <h3 class="rw-title">BrickSim: A Physics-Based Simulator for Manipulating Interlocking Brick Assemblies</h3>
+          <p class="rw-authors">Haowei Wen, Ruixuan Liu, Weiyi Piao, Siyu Li, Changliu Liu</p>
+          <p class="rw-venue">ArXiv, 2026</p>
+          <p class="rw-links">
+            <a class="rw-btn" href="https://arxiv.org/abs/2603.16853" target="_blank" rel="noopener noreferrer">Paper</a>
+            <a class="rw-btn" href="https://intelligent-control-lab.github.io/BrickSim/" target="_blank" rel="noopener noreferrer">Project Page</a>
+            <a class="rw-btn" href="https://github.com/intelligent-control-lab/BrickSim" target="_blank" rel="noopener noreferrer">Code</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="rw-item">
+        <div class="rw-thumb">
+          <img src="https://raw.githubusercontent.com/waynekyrie/website_assets/master/promt2product_teaser.gif" alt="Prompt-to-Product">
+        </div>
+        <div class="rw-text">
+          <h3 class="rw-title">Prompt-to-Product: Generative Assembly via Bimanual Manipulation</h3>
+          <p class="rw-authors">Ruixuan Liu*, Philip Huang*, Ava Pun, Kangle Deng, Shobhit Agarwal, Zhenran Tang, Michelle Liu, Deva Ramanan, Jun-Yan Zhu, Jiaoyang Li, Changliu Liu</p>
+          <p class="rw-venue">ArXiv, 2025</p>
+          <p class="rw-links">
+            <a class="rw-btn" href="https://arxiv.org/abs/2508.21063" target="_blank" rel="noopener noreferrer">Paper</a>
+            <a class="rw-btn" href="https://icontrol.ri.cmu.edu/research/lego.html" target="_blank" rel="noopener noreferrer">Project Page</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="rw-item">
+        <div class="rw-thumb">
+          <img src="https://intelligent-control-lab.github.io/BrickSim/resources/apex.gif" alt="APEX-MR">
+        </div>
+        <div class="rw-text">
+          <h3 class="rw-title">APEX-MR: Multi-Robot Asynchronous Planning and Execution for Cooperative Assembly</h3>
+          <p class="rw-authors">Philip Huang*, Ruixuan Liu*, Shobhit Aggarwal, Changliu Liu, Jiaoyang Li</p>
+          <p class="rw-venue">RSS, 2025</p>
+          <p class="rw-links">
+            <a class="rw-btn" href="https://arxiv.org/abs/2503.15836" target="_blank" rel="noopener noreferrer">Paper</a>
+            <a class="rw-btn" href="https://intelligent-control-lab.github.io/APEX-MR/" target="_blank" rel="noopener noreferrer">Project Page</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="rw-item">
+        <div class="rw-thumb">
+          <img src="https://intelligent-control-lab.github.io/BrickSim/resources/legogpt.gif" alt="BrickGPT">
+        </div>
+        <div class="rw-text">
+          <h3 class="rw-title">BrickGPT: Generating Physically Stable and Buildable LEGO Designs from Text</h3>
+          <p class="rw-authors">Ava Pun*, Kangle Deng*, Ruixuan Liu*, Deva Ramanan, Changliu Liu, Jun-Yan Zhu</p>
+          <p class="rw-venue">ICCV, 2025</p>
+          <p class="rw-links">
+            <a class="rw-btn" href="https://www.arxiv.org/abs/2505.05469" target="_blank" rel="noopener noreferrer">Paper</a>
+            <a class="rw-btn" href="https://avalovelace1.github.io/LegoGPT/" target="_blank" rel="noopener noreferrer">Project Page</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="rw-item">
+        <div class="rw-thumb">
+          <img src="https://intelligent-control-lab.github.io/BrickSim/resources/PAasp.gif" alt="Physics-Aware ASP">
+        </div>
+        <div class="rw-text">
+          <h3 class="rw-title">Physics-Aware Combinatorial Assembly Sequence Planning using Data-free Action Masking</h3>
+          <p class="rw-authors">Ruixuan Liu, Alan Chen, Weiye Zhao, Changliu Liu</p>
+          <p class="rw-venue">IEEE RA-L, 2025</p>
+          <p class="rw-links">
+            <a class="rw-btn" href="https://arxiv.org/abs/2408.10162" target="_blank" rel="noopener noreferrer">Paper</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="rw-item">
+        <div class="rw-thumb">
+          <img src="https://intelligent-control-lab.github.io/BrickSim/resources/stablelego.png" alt="StableLego">
+        </div>
+        <div class="rw-text">
+          <h3 class="rw-title">StableLego: Stability Analysis of Block Stacking Assembly</h3>
+          <p class="rw-authors">Ruixuan Liu, Kangle Deng, Ziwei Wang, Changliu Liu</p>
+          <p class="rw-venue">IEEE RA-L, 2024</p>
+          <p class="rw-links">
+            <a class="rw-btn" href="https://ieeexplore.ieee.org/document/10556686" target="_blank" rel="noopener noreferrer">Paper</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="rw-item">
+        <div class="rw-thumb">
+          <img src="https://intelligent-control-lab.github.io/BrickSim/resources/lego_manipulation.gif" alt="LEGO Manipulation">
+        </div>
+        <div class="rw-text">
+          <h3 class="rw-title">A Lightweight and Transferable Design for Robust LEGO Manipulation</h3>
+          <p class="rw-authors">Ruixuan Liu, Yifan Sun, Changliu Liu</p>
+          <p class="rw-venue">International Symposium on Flexible Automation (ISFA), 2024</p>
+          <p class="rw-links">
+            <a class="rw-btn" href="https://arxiv.org/abs/2309.02354" target="_blank" rel="noopener noreferrer">Paper</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     SECTION 8: BIBTEX
      ============================================================ -->
 <section class="section bibtex-section">
   <div class="container">
