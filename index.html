@@ -399,20 +399,45 @@
 
     /* ========== Long-horizon ========== */
     .longhorizon-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 16px;
     }
     .lh-card {
+      flex: 0 1 calc((100% - 48px) / 4);
+      min-width: 180px;
       background: var(--white);
       border-radius: var(--radius-sm);
       overflow: hidden;
       border: 1px solid #ececec;
     }
+    .lh-card-media {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: #000;
+    }
     .lh-card video {
       width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
       background: #000;
+    }
+    .lh-speed-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.72);
+      color: #fff;
+      font-size: 0.76rem;
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: 0.02em;
+      pointer-events: none;
     }
     .lh-card-label {
       text-align: center;
@@ -422,8 +447,25 @@
       color: var(--text);
       background: #fafafa;
     }
+    .lh-card-label strong {
+      display: block;
+      color: var(--brick);
+      font-size: 1rem;
+    }
+    .lh-card-label span {
+      display: block;
+      color: var(--text-light);
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
     @media (max-width: 700px) {
-      .longhorizon-grid { grid-template-columns: 1fr; }
+      .lh-card {
+        flex-basis: calc((100% - 16px) / 2);
+        min-width: 0;
+      }
+    }
+    @media (max-width: 440px) {
+      .lh-card { flex-basis: 100%; }
     }
 
     /* ========== Tables ========== */
@@ -746,7 +788,7 @@
   <div class="container">
       <div class="section-title">Abstract</div>
       <p class="abstract-text">
-        Autonomous robotic assembly of interlocking bricks demands seamless integration of long-horizon task reasoning, spatial grounding, and fine-grained manipulation. This paper presents <span class="bc">BrickCraft</span>, a compositional framework designed for long-horizon and generalizable interlocking brick assembly. <span class="bc">BrickCraft</span> models the assembly process using a relative formulation, where each step is anchored to a reference brick within the partial structure, thereby decomposing complex tasks into a finite set of reusable primitive skills. <span class="bc">BrickCraft</span> bridges the gap between high-level assembly plans and physical execution through situated manuals, which provide explicit spatial guidance for learned visuomotor skills by projecting the assembly intent onto real-time robot observations. Finally, <span class="bc">BrickCraft</span> employs a compositional execution pipeline that chains these spatially grounded skills to accomplish long-horizon assembly tasks. Extensive experimental validations demonstrate that <span class="bc">BrickCraft</span> acquires proficient assembly skills from a limited set of demonstrations and exhibits strong compositional generalization to unseen structures.
+        Autonomous robotic assembly of interlocking bricks demands seamless integration of long-horizon task reasoning, spatial grounding, and fine-grained manipulation. This paper presents <span class="bc">BrickCraft</span>, a compositional framework designed for long-horizon and generalizable interlocking brick assembly. <span class="bc">BrickCraft</span> models the assembly process using a relative formulation, where each step is anchored to a reference brick within the partial structure, thereby decomposing complex tasks into a finite set of reusable primitive skills. <span class="bc">BrickCraft</span> bridges the gap between high-level assembly plans and physical execution through situated manuals, which provide explicit spatial guidance for learned visuomotor skills by projecting the assembly intent onto real-time robot observations. Finally, <span class="bc">BrickCraft</span> employs a modular execution pipeline that chains these spatially grounded skills to accomplish long-horizon assembly tasks. Extensive experimental validations demonstrate that <span class="bc">BrickCraft</span> acquires proficient assembly skills from a limited set of demonstrations and effectively composes them for diverse long-horizon assembly tasks.
       </p>
   </div>
 </section>
@@ -830,12 +872,12 @@
   <div class="container">
     <div class="section-title section-title--major">Qualitative Results</div>
     <p class="method-desc" style="margin-bottom: 1rem;">
-      We trained three visuomotor assembly skills on a broad range of demonstrations. The situated manual enables these skills to execute diverse assembly tasks with seamless adaptation to unseen structures.
+      We evaluate single-step assembly performance across three representative primitive skills. The situated manual directs the policy toward the relative geometric relationship between the target and reference bricks, enabling efficient skill learning and robust generalization to unseen structures.
     </p>
     <div class="skills-stack">
       <div class="skill-block">
         <div class="skill-block-header">
-          <span class="skill-tau">τ = [0, 0, 1, 0]</span>
+          <span class="skill-tau">τ = [0, 0, 1, 0, 0, 0]</span>
           <span class="skill-desc">Stack target brick directly on top of the highlighted reference brick.</span>
         </div>
         <div class="skill-row">
@@ -859,7 +901,7 @@
       </div>
       <div class="skill-block">
         <div class="skill-block-header">
-          <span class="skill-tau">τ = [1, 0, 1, 0]</span>
+          <span class="skill-tau">τ = [1, 0, 1, 0, 0, 0]</span>
           <span class="skill-desc">Place target brick offset by 1 stud in x, then stack on top of the reference.</span>
         </div>
         <div class="skill-row">
@@ -883,7 +925,7 @@
       </div>
       <div class="skill-block">
         <div class="skill-block-header">
-          <span class="skill-tau">τ = [2, 0, 0, 0]</span>
+          <span class="skill-tau">τ = [2, 0, 0, 0, 0, 0]</span>
           <span class="skill-desc">Place target brick at the same level as the reference, offset by 2 studs in x.</span>
         </div>
         <div class="skill-row">
@@ -923,22 +965,67 @@
 
     <div class="longhorizon-grid">
       <div class="lh-card">
-        <video autoplay muted loop playsinline preload="metadata">
-          <source src="./static/videos/brickcraft/longhorizon/pyramid.mp4" type="video/mp4" />
-        </video>
-        <div class="lh-card-label">Pyramid</div>
+        <div class="lh-card-media">
+          <video autoplay muted loop playsinline preload="metadata" aria-label="Long-horizon assembly task L1">
+            <source src="./static/videos/brickcraft/longhorizon/L1.mp4" type="video/mp4" />
+          </video>
+          <span class="lh-speed-badge" aria-label="16 times speed">16&times;</span>
+        </div>
+        <div class="lh-card-label"><strong>L1</strong><span>Assembly steps: 4</span></div>
       </div>
       <div class="lh-card">
-        <video autoplay muted loop playsinline preload="metadata">
-          <source src="./static/videos/brickcraft/longhorizon/stairs.mp4" type="video/mp4" />
-        </video>
-        <div class="lh-card-label">Stairs</div>
+        <div class="lh-card-media">
+          <video autoplay muted loop playsinline preload="metadata" aria-label="Long-horizon assembly task L2">
+            <source src="./static/videos/brickcraft/longhorizon/L2.mp4" type="video/mp4" />
+          </video>
+          <span class="lh-speed-badge" aria-label="16 times speed">16&times;</span>
+        </div>
+        <div class="lh-card-label"><strong>L2</strong><span>Assembly steps: 5</span></div>
       </div>
       <div class="lh-card">
-        <video autoplay muted loop playsinline preload="metadata">
-          <source src="./static/videos/brickcraft/longhorizon/house.mp4" type="video/mp4" />
-        </video>
-        <div class="lh-card-label">House</div>
+        <div class="lh-card-media">
+          <video autoplay muted loop playsinline preload="metadata" aria-label="Long-horizon assembly task L3">
+            <source src="./static/videos/brickcraft/longhorizon/L3.mp4" type="video/mp4" />
+          </video>
+          <span class="lh-speed-badge" aria-label="16 times speed">16&times;</span>
+        </div>
+        <div class="lh-card-label"><strong>L3</strong><span>Assembly steps: 5</span></div>
+      </div>
+      <div class="lh-card">
+        <div class="lh-card-media">
+          <video autoplay muted loop playsinline preload="metadata" aria-label="Long-horizon assembly task L4">
+            <source src="./static/videos/brickcraft/longhorizon/L4.mp4" type="video/mp4" />
+          </video>
+          <span class="lh-speed-badge" aria-label="16 times speed">16&times;</span>
+        </div>
+        <div class="lh-card-label"><strong>L4</strong><span>Assembly steps: 7</span></div>
+      </div>
+      <div class="lh-card">
+        <div class="lh-card-media">
+          <video autoplay muted loop playsinline preload="metadata" aria-label="Long-horizon assembly task L5">
+            <source src="./static/videos/brickcraft/longhorizon/L5.mp4" type="video/mp4" />
+          </video>
+          <span class="lh-speed-badge" aria-label="16 times speed">16&times;</span>
+        </div>
+        <div class="lh-card-label"><strong>L5</strong><span>Assembly steps: 7</span></div>
+      </div>
+      <div class="lh-card">
+        <div class="lh-card-media">
+          <video autoplay muted loop playsinline preload="metadata" aria-label="Long-horizon assembly task L6">
+            <source src="./static/videos/brickcraft/longhorizon/L6.mp4" type="video/mp4" />
+          </video>
+          <span class="lh-speed-badge" aria-label="16 times speed">16&times;</span>
+        </div>
+        <div class="lh-card-label"><strong>L6</strong><span>Assembly steps: 9</span></div>
+      </div>
+      <div class="lh-card">
+        <div class="lh-card-media">
+          <video autoplay muted loop playsinline preload="metadata" aria-label="Long-horizon assembly task L7">
+            <source src="./static/videos/brickcraft/longhorizon/L7.mp4" type="video/mp4" />
+          </video>
+          <span class="lh-speed-badge" aria-label="16 times speed">16&times;</span>
+        </div>
+        <div class="lh-card-label"><strong>L7</strong><span>Assembly steps: 9</span></div>
       </div>
     </div>
 
@@ -1046,6 +1133,21 @@
     </p>
 
     <div class="rw-list">
+
+      <div class="rw-item">
+        <div class="rw-thumb">
+          <img src="./static/images/BrickCraft-Duo.gif" alt="BrickCraft-Duo dual-arm assembly demonstration">
+        </div>
+        <div class="rw-text">
+          <h3 class="rw-title">BrickCraft-Duo: Efficient Dual-Arm Skill Learning and Refinement for Compositional Long-Horizon Assembly</h3>
+          <p class="rw-authors">Jichuan Yu, Zhenyu Xiao, Ze Wang, Ruixuan Liu, Changliu Liu, Chuxiong Hu</p>
+          <p class="rw-venue">ArXiv, 2026</p>
+          <p class="rw-links">
+            <a class="rw-btn" href="https://arxiv.org/abs/2609.28281" target="_blank" rel="noopener noreferrer">Paper</a>
+            <a class="rw-btn" href="https://jichuan-yu.github.io/BrickCraft-Duo/" target="_blank" rel="noopener noreferrer">Project Page</a>
+          </p>
+        </div>
+      </div>
 
       <div class="rw-item">
         <div class="rw-thumb">
