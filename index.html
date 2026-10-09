@@ -138,23 +138,50 @@
     <div class="task-encoding-layout">
       <div class="task-encoding-copy">
         <p class="method-desc">
-          LEGO bricks offer endless possibilities for creative assembly. We adopt a relative task representation: each assembly step installs a target brick relative to a reference brick, allowing us to abstract open-ended assembly tasks into a finite set of reusable assembly primitives.
-        </p>
-        <p class="method-desc">
-          Each primitive is represented by a 6D integer vector
+          BrickCraft adopts a relative task representation: each assembly step installs a target brick relative to a reference brick, reducing open-ended assembly tasks to a finite set of reusable primitives. Each primitive is represented by a 6D integer vector
         </p>
         <div class="task-encoding-equation">
           \(\boldsymbol{\tau} = [\tau_x, \tau_y, \tau_z, \tau_\theta, \tau_{ref}, \tau_{tgt}]\)
         </div>
         <p class="method-desc task-encoding-continuation">
-          which encodes the relative position and orientation of the target brick with respect to the reference brick, together with the types of the two bricks.
+          which encodes the relative pose of the target brick with respect to the reference brick, as well as the types of both bricks.
         </p>
       </div>
       <img class="method-figure task-encoding-figure" src="./static/images/brickcraft/task_encoding.png" alt="Task encoding representation and assembly examples" />
     </div>
     <p class="method-desc task-planning-desc">
-      Given a target structure \(\mathcal{B}\) and a predefined set of task encodings \(\mathcal{T}\), BrickCraft searches for a feasible assembly plan \(\mathcal{P}\) through an assembly-by-disassembly strategy. It first searches for a feasible disassembly sequence and then reverses it to obtain \(\mathcal{P}\), while enforcing physical constraints on connectivity, observability, operability, and structural stability.
+      Given a target structure \(\mathcal{B}\) and a predefined set of task encodings \(\mathcal{T}\), BrickCraft searches for a feasible assembly plan \(\mathcal{P}\) through physics-aware assembly reasoning, considering constraints on connectivity, observability, operability, and structural stability.
     </p>
+
+    <div class="assembly-examples" aria-label="Assembly planning structures">
+      <div class="assembly-example-cards" role="group" aria-label="Choose an assembly planning structure">
+        <div class="assembly-example-card is-active" role="button" tabindex="0" data-example="0" aria-pressed="true">Structure 1</div>
+        <div class="assembly-example-card" role="button" tabindex="0" data-example="1" aria-pressed="false">Structure 2</div>
+        <div class="assembly-example-card" role="button" tabindex="0" data-example="2" aria-pressed="false">Structure 3</div>
+        <div class="assembly-example-card" role="button" tabindex="0" data-example="3" aria-pressed="false">Structure 4</div>
+      </div>
+
+      <div class="assembly-example-content">
+        <article class="assembly-example-panel assembly-plan-panel">
+          <div class="assembly-example-panel-header">
+            <span>Assembly Plan</span>
+          </div>
+          <pre class="assembly-plan-code" tabindex="0" aria-label="Structure 1 assembly plan JSON"><code id="assembly-plan-json"></code></pre>
+        </article>
+
+        <article class="assembly-example-panel assembly-video-panel">
+          <div class="assembly-example-panel-header">
+            <span>Visualization</span>
+          </div>
+          <div class="assembly-video-frame">
+            <video id="assembly-plan-video" controls muted playsinline preload="metadata" aria-label="Structure 1 assembly planning visualization">
+              <source src="./static/videos/plan1.mp4" type="video/mp4" />
+              Your browser does not support the video element.
+            </video>
+          </div>
+        </article>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -346,10 +373,9 @@
      ============================================================ -->
 <section class="section results-section" id="longhorizon">
   <div class="container">
-
-    <div class="section-title section-title--major">Long-Horizon Assembly</div>
+    <div class="section-title section-title--major">Autonomous Long-Horizon Assembly</div>
     <p class="method-desc" style="margin-bottom: 1rem;">
-      By chaining spatially grounded skills into a composable execution pipeline, <span class="bc">BrickCraft</span> achieves fully autonomous, long-horizon assembly across various brick designs.
+      By chaining spatially grounded skills into a composable execution pipeline, BrickCraft achieves fully autonomous, long-horizon assembly across various brick designs.
     </p>
 
     <div class="longhorizon-grid">
@@ -645,6 +671,7 @@
 
 </div><!-- /.page-shell -->
 
+<script src="./static/js/assembly-plans.js"></script>
 <script>
 // Copy BibTeX
 const copyBtn = document.getElementById('copy-bib');
@@ -672,6 +699,107 @@ if (performanceChart && !reduceMotion && 'IntersectionObserver' in window) {
   }, { threshold: 0.25 });
   chartObserver.observe(performanceChart);
 }
+
+// Keep each assembly video synchronized with its JSON plan.
+const assemblyPlans = Array.isArray(window.assemblyPlanData) ? window.assemblyPlanData : [];
+const assemblyExamples = [
+  { name: 'Structure 1', video: './static/videos/plan1.mp4', plan: assemblyPlans[0] },
+  { name: 'Structure 2', video: './static/videos/plan2.mp4', plan: assemblyPlans[1] },
+  { name: 'Structure 3', video: './static/videos/plan3.mp4', plan: assemblyPlans[2] },
+  { name: 'Structure 4', video: './static/videos/plan4.mp4', plan: assemblyPlans[3] }
+];
+
+const assemblyVideo = document.getElementById('assembly-plan-video');
+const assemblyJson = document.getElementById('assembly-plan-json');
+const assemblyCards = Array.from(document.querySelectorAll('.assembly-example-card'));
+const assemblyExampleContent = document.querySelector('.assembly-example-content');
+const assemblyVideoFrame = document.querySelector('.assembly-video-frame');
+const assemblyVideoHeader = document.querySelector('.assembly-video-panel .assembly-example-panel-header');
+
+function syncAssemblyPanelHeights() {
+  if (!assemblyExampleContent || !assemblyVideoFrame || !assemblyVideoHeader) return;
+  const videoSize = assemblyVideoFrame.getBoundingClientRect().width;
+  const panelHeight = Math.ceil(videoSize + assemblyVideoHeader.getBoundingClientRect().height + 2);
+  assemblyExampleContent.style.setProperty('--assembly-panel-height', `${panelHeight}px`);
+}
+
+function formatBrick(brick) {
+  return `{ "brick_id": ${JSON.stringify(brick.brick_id)}, "shape": ${JSON.stringify(brick.shape)}, "color": ${JSON.stringify(brick.color)} }`;
+}
+
+function formatAssemblyPlan(plan) {
+  if (!Array.isArray(plan)) return 'Assembly plan data unavailable.';
+
+  const lines = ['['];
+  plan.forEach((step, index) => {
+    lines.push('  {');
+    lines.push(`    "step_id": ${JSON.stringify(step.step_id)},`);
+    lines.push(`    "b_ref": ${formatBrick(step.b_ref)},`);
+    lines.push(`    "b_tgt": ${formatBrick(step.b_tgt)},`);
+    lines.push(`    "task_encoding": ${JSON.stringify(step.task_encoding)}`);
+    lines.push(`  }${index < plan.length - 1 ? ',' : ''}`);
+  });
+  lines.push(']');
+  return lines.join('\n');
+}
+
+function highlightJson(json) {
+  const escaped = json
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  return escaped.replace(/("(?:\\u[a-fA-F0-9]{4}|\\[^u]|[^\\"])*"\s*:|"(?:\\u[a-fA-F0-9]{4}|\\[^u]|[^\\"])*"|\b(?:true|false|null)\b|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/g, (token) => {
+    let type = 'number';
+    if (token.startsWith('"')) type = token.trimEnd().endsWith(':') ? 'key' : 'string';
+    else if (/^(true|false)$/.test(token)) type = 'boolean';
+    else if (token === 'null') type = 'null';
+    return `<span class="json-${type}">${token}</span>`;
+  });
+}
+
+function showAssemblyExample(index) {
+  const example = assemblyExamples[index];
+  if (!example || !assemblyVideo || !assemblyJson) return;
+
+  assemblyVideo.pause();
+  assemblyVideo.src = example.video;
+  assemblyVideo.setAttribute('aria-label', `${example.name} assembly planning visualization`);
+  assemblyVideo.load();
+  assemblyVideo.play().catch(() => {});
+
+  assemblyJson.innerHTML = highlightJson(formatAssemblyPlan(example.plan));
+  assemblyJson.parentElement.setAttribute('aria-label', `${example.name} assembly plan JSON`);
+
+  assemblyCards.forEach((card, cardIndex) => {
+    const isActive = cardIndex === index;
+    card.classList.toggle('is-active', isActive);
+    card.setAttribute('aria-pressed', String(isActive));
+  });
+}
+
+assemblyCards.forEach((card) => {
+  const selectCard = () => showAssemblyExample(Number(card.dataset.example));
+  card.addEventListener('click', selectCard);
+  card.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      selectCard();
+    }
+  });
+});
+
+showAssemblyExample(0);
+
+const assemblyPanelObserver = 'ResizeObserver' in window
+  ? new ResizeObserver(syncAssemblyPanelHeights)
+  : null;
+if (assemblyPanelObserver && assemblyExampleContent) {
+  assemblyPanelObserver.observe(assemblyExampleContent);
+} else {
+  window.addEventListener('resize', syncAssemblyPanelHeights);
+}
+requestAnimationFrame(syncAssemblyPanelHeights);
 </script>
 
 </body>

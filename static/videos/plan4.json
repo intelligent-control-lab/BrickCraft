@@ -1,0 +1,213 @@
+﻿[
+    {
+        "step_id":  1,
+        "b_ref":  {
+                      "brick_id":  1,
+                      "shape":  "2x2",
+                      "color":  "yellow"
+                  },
+        "b_tgt":  {
+                      "brick_id":  2,
+                      "shape":  "2x2",
+                      "color":  "red"
+                  },
+        "task_encoding":  [
+                              2,
+                              0,
+                              0,
+                              0,
+                              0,
+                              0
+                          ]
+    },
+    {
+        "step_id":  2,
+        "b_ref":  {
+                      "brick_id":  2,
+                      "shape":  "2x2",
+                      "color":  "red"
+                  },
+        "b_tgt":  {
+                      "brick_id":  3,
+                      "shape":  "2x2",
+                      "color":  "yellow"
+                  },
+        "task_encoding":  [
+                              2,
+                              0,
+                              0,
+                              0,
+                              0,
+                              0
+                          ]
+    },
+    {
+        "step_id":  3,
+        "b_ref":  {
+                      "brick_id":  3,
+                      "shape":  "2x2",
+                      "color":  "yellow"
+                  },
+        "b_tgt":  {
+                      "brick_id":  4,
+                      "shape":  "2x2",
+                      "color":  "red"
+                  },
+        "task_encoding":  [
+                              2,
+                              0,
+                              0,
+                              0,
+                              0,
+                              0
+                          ]
+    },
+    {
+        "step_id":  4,
+        "b_ref":  {
+                      "brick_id":  4,
+                      "shape":  "2x2",
+                      "color":  "red"
+                  },
+        "b_tgt":  {
+                      "brick_id":  5,
+                      "shape":  "2x2",
+                      "color":  "red"
+                  },
+        "task_encoding":  [
+                              0,
+                              0,
+                              1,
+                              0,
+                              0,
+                              0
+                          ]
+    },
+    {
+        "step_id":  5,
+        "b_ref":  {
+                      "brick_id":  2,
+                      "shape":  "2x2",
+                      "color":  "red"
+                  },
+        "b_tgt":  {
+                      "brick_id":  6,
+                      "shape":  "2x2",
+                      "color":  "yellow"
+                  },
+        "task_encoding":  [
+                              1,
+                              0,
+                              1,
+                              0,
+                              0,
+                              0
+                          ]
+    },
+    {
+        "step_id":  6,
+        "b_ref":  {
+                      "brick_id":  1,
+                      "shape":  "2x2",
+                      "color":  "yellow"
+                  },
+        "b_tgt":  {
+                      "brick_id":  7,
+                      "shape":  "2x2",
+                      "color":  "red"
+                  },
+        "task_encoding":  [
+                              0,
+                              0,
+                              1,
+                              0,
+                              0,
+                              0
+                          ]
+    },
+    {
+        "step_id":  7,
+        "b_ref":  {
+                      "brick_id":  7,
+                      "shape":  "2x2",
+                      "color":  "red"
+                  },
+        "b_tgt":  {
+                      "brick_id":  8,
+                      "shape":  "2x2",
+                      "color":  "yellow"
+                  },
+        "task_encoding":  [
+                              1,
+                              0,
+                              1,
+                              0,
+                              0,
+                              0
+                          ]
+    },
+    {
+        "step_id":  8,
+        "b_ref":  {
+                      "brick_id":  8,
+                      "shape":  "2x2",
+                      "color":  "yellow"
+                  },
+        "b_tgt":  {
+                      "brick_id":  9,
+                      "shape":  "2x2",
+                      "color":  "red"
+                  },
+        "task_encoding":  [
+                              2,
+                              0,
+                              0,
+                              0,
+                              0,
+                              0
+                          ]
+    },
+    {
+        "step_id":  9,
+        "b_ref":  {
+                      "brick_id":  9,
+                      "shape":  "2x2",
+                      "color":  "red"
+                  },
+        "b_tgt":  {
+                      "brick_id":  10,
+                      "shape":  "2x2",
+                      "color":  "yellow"
+                  },
+        "task_encoding":  [
+                              2,
+                              0,
+                              0,
+                              0,
+                              0,
+                              0
+                          ]
+    },
+    {
+        "step_id":  10,
+        "b_ref":  {
+                      "brick_id":  9,
+                      "shape":  "2x2",
+                      "color":  "red"
+                  },
+        "b_tgt":  {
+                      "brick_id":  11,
+                      "shape":  "2x2",
+                      "color":  "yellow"
+                  },
+        "task_encoding":  [
+                              0,
+                              0,
+                              1,
+                              0,
+                              0,
+                              0
+                          ]
+    }
+]
+
