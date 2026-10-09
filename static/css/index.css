@@ -370,20 +370,17 @@ a:hover { text-decoration: underline; }
 /* ========== Section Titles ========== */
 .section-title {
   font-family: var(--font-heading);
-  font-size: 1.4rem;
+  font-size: 1.52rem;
   font-weight: 700;
   margin-bottom: 1rem;
   color: var(--brick);
   letter-spacing: -0.02em;
   display: block;
 }
-.section-title--major { font-size: 1.52rem; }
-
 /* ========== Abstract ========== */
 .abstract-section.section { padding-top: 44px; }
 .abstract-section .section-title {
   text-align: center;
-  font-size: 1.34rem;
 }
 .abstract-text {
   text-align: justify;
