@@ -291,6 +291,12 @@ a:hover { text-decoration: underline; }
 .equal-contrib {
   font-size: 0.88rem;
   color: var(--text-light);
+  margin-bottom: 8px;
+}
+
+.publication-venue {
+  font-size: 1rem;
+  color: var(--text);
   margin-bottom: 22px;
 }
 
