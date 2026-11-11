@@ -1,0 +1,46 @@
+# Set the rendered plan directory and checkpoint paths for your deployment.
+plan_path: ./configs/assembly_plans/2x4_4
+
+sam2_config:
+  sam2_config: sam2.1_hiera_t_512
+  sam2_checkpoint: ./models/sam2/sam2.1_hiera_tiny.pt
+  sam2_device: cuda
+
+yolo_seg_structure_ckpt: ./models/yolo/seg_structure.pt
+yolo_seg_brick_gripper_ckpt: ./models/yolo/seg_brick_gripper.pt
+
+pick_skill_config:
+  # Poses are [x, y, z, rx, ry, rz]: metres and XYZ Euler angles in degrees.
+  pick_prepare_pose: [0.415, 0.34, 0.055, 180.0, 0.0, 90.0]
+  # Target shape -> full color name -> calibrated grasp pose.
+  pick_poses_by_shape_and_color:
+    2x2:
+      yellow: [0.280, 0.363, -0.060, 180.0, 0.0, 90.0]
+      red: [0.320, 0.363, -0.060, 180.0, 0.0, 90.0]
+    2x4:
+      orange: [0.360, 0.363, -0.060, 180.0, 0.0, 90.0]
+  control_frequency: 10.0  # Hz for scripted pick motion.
+  linear_velocity: 0.05  # m/s
+  angular_velocity: 30.0  # degrees/s
+  gripper_close_wait: 1.0  # Seconds before lifting.
+
+assemble_skill_config:
+  assembly_prepare_pose: [0.415, 0.34, 0.055, 180.0, 0.0, 90.0]
+  episode_timeout: 60.0  # Seconds per policy episode.
+  gripper_open_threshold: 0.4  # Normalized position below this counts as open.
+  open_wait_duration: 3.0  # Seconds the gripper must remain open before stopping.
+  post_condition_iou_threshold: 0.8  # Require IoU above this value; calibrate with real outcomes.
+  async_policy_controller_config:
+    policy_type: brick_diffusion
+    pretrained_path: ./models/brickcraft_diffusion/pretrained_model
+    control_freq: 10  # Hz for policy execution.
+    action_queue_thres: 3
+    device: cuda
+    enable_segmentation: true
+    confirm_segmentation: false  # Review the initial mask before policy execution.
+    segmentation_camera: fixed_camera
+    show_segmentation: false
+    diffusion_loss_warning_thres: 0.001
+
+enable_step_identification: false  # Default: run steps 1..N in order, then exit.
+identification_min_iou: 0.8  # Minimum IoU of the best matching structure state.

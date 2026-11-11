@@ -1,0 +1,38 @@
+# Directories
+/tmp/
+/tests/
+
+# Local Docker environments and configuration
+*[Dd][Oo][Cc][Kk][Ee][Rr]*
+compose.yml
+compose.yaml
+
+models/
+
+dataset/
+
+data/
+
+outputs/
+
+wandb/
+
+# Archives
+*.egg-info/
+/build/
+/dist/
+
+# Python cache
+*.py[cod]
+__pycache__/
+
+# logs
+logs/
+*.log
+
+# IDEs
+.vscode/
+
+# Local agent instructions
+AGENTS.md
+Agents.md

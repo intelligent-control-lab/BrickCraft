@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "brickcraft"
+version = "0.1.0"
+description = "BrickCraft: Visuomotor Skill Composition with Situated Manual Guidance for Long-Horizon Interlocking Brick Assembly"
+readme = "README.md"
+authors = [
+    { name = "Jichuan Yu" },
+    { name = "Bowei Li" },
+]
+license = { text = "MIT" }
+requires-python = ">=3.10"
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Robotics",
+]
+
+dependencies = [
+    # Core ML (retain the tested PyTorch 2.7 stack with LeRobot 0.4.4)
+    # LeRobot 0.4.4's rerun-sdk requires NumPy 2; OpenCV 4.12 supports <2.3.
+    "numpy>=2.0,<2.3",
+    "torch>=2.7.0,<2.8.0",
+    "torchvision>=0.22.0,<0.23.0",
+    "torchcodec>=0.3.0,<0.6.0; sys_platform == 'linux' and platform_machine == 'x86_64'",
+    "einops>=0.8.0,<0.9.0",
+    "diffusers>=0.27.2,<0.36.0",
+
+    # Perception (sam2 is installed separately; see README)
+    "opencv-python>=4.10.0,<4.13.0",
+    "pillow>=10.0",
+    "ultralytics>=8.0",
+
+    # LeRobot
+    "lerobot==0.4.4",
+
+    # Video I/O (FFmpeg shared libraries are installed separately via Conda)
+    "imageio[ffmpeg]>=2.34.0,<3.0.0",
+
+    # SpaceMouse teleoperation
+    "easyhid>=0.0.10",
+
+    # Utils
+    "pyyaml>=6.0",
+    "pydantic>=2.0",
+    "scipy>=1.10",
+
+    # Workaround: generate-parameter-library-py has incomplete dependency metadata
+    # and pip may fail to resolve its typeguard requirement.
+    "typeguard>=2.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/intelligent-control-lab/brickcraft"
+Repository = "https://github.com/intelligent-control-lab/brickcraft"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100

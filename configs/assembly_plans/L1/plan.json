@@ -1,0 +1,137 @@
+{
+  "initial_brick": {
+    "brick_id": 1,
+    "shape": "2x4",
+    "x": 6,
+    "y": 8,
+    "z": 1,
+    "ori": 0,
+    "color": "orange"
+  },
+  "steps": [
+    {
+      "step_id": 1,
+      "b_ref": {
+        "brick_id": 1,
+        "shape": "2x4",
+        "x": 6,
+        "y": 8,
+        "z": 1,
+        "ori": 0,
+        "color": "orange"
+      },
+      "b_tgt": {
+        "brick_id": 2,
+        "shape": "2x2",
+        "x": 6,
+        "y": 8,
+        "z": 2,
+        "ori": 0,
+        "color": "red"
+      },
+      "task_encoding": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "current_image": "images/000.png",
+      "current_mask": "masks/000.png"
+    },
+    {
+      "step_id": 2,
+      "b_ref": {
+        "brick_id": 2,
+        "shape": "2x2",
+        "x": 6,
+        "y": 8,
+        "z": 2,
+        "ori": 0,
+        "color": "red"
+      },
+      "b_tgt": {
+        "brick_id": 3,
+        "shape": "2x4",
+        "x": 6,
+        "y": 8,
+        "z": 3,
+        "ori": 0,
+        "color": "orange"
+      },
+      "task_encoding": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1
+      ],
+      "current_image": "images/001.png",
+      "current_mask": "masks/001.png"
+    },
+    {
+      "step_id": 3,
+      "b_ref": {
+        "brick_id": 3,
+        "shape": "2x4",
+        "x": 6,
+        "y": 8,
+        "z": 3,
+        "ori": 0,
+        "color": "orange"
+      },
+      "b_tgt": {
+        "brick_id": 4,
+        "shape": "2x2",
+        "x": 6,
+        "y": 8,
+        "z": 4,
+        "ori": 0,
+        "color": "red"
+      },
+      "task_encoding": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "current_image": "images/002.png",
+      "current_mask": "masks/002.png"
+    },
+    {
+      "step_id": 4,
+      "b_ref": {
+        "brick_id": 4,
+        "shape": "2x2",
+        "x": 6,
+        "y": 8,
+        "z": 4,
+        "ori": 0,
+        "color": "red"
+      },
+      "b_tgt": {
+        "brick_id": 5,
+        "shape": "2x4",
+        "x": 6,
+        "y": 8,
+        "z": 5,
+        "ori": 0,
+        "color": "orange"
+      },
+      "task_encoding": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1
+      ],
+      "current_image": "images/003.png",
+      "current_mask": "masks/003.png"
+    }
+  ]
+}

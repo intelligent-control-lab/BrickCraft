@@ -1,0 +1,230 @@
+{
+  "initial_brick": {
+    "brick_id": 1,
+    "shape": "2x4",
+    "x": 4,
+    "y": 8,
+    "z": 1,
+    "ori": 0,
+    "color": "orange"
+  },
+  "steps": [
+    {
+      "step_id": 1,
+      "b_ref": {
+        "brick_id": 1,
+        "shape": "2x4",
+        "x": 4,
+        "y": 8,
+        "z": 1,
+        "ori": 0,
+        "color": "orange"
+      },
+      "b_tgt": {
+        "brick_id": 2,
+        "shape": "2x2",
+        "x": 8,
+        "y": 8,
+        "z": 1,
+        "ori": 0,
+        "color": "red"
+      },
+      "task_encoding": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "current_image": "images/000.png",
+      "current_mask": "masks/000.png"
+    },
+    {
+      "step_id": 2,
+      "b_ref": {
+        "brick_id": 2,
+        "shape": "2x2",
+        "x": 8,
+        "y": 8,
+        "z": 1,
+        "ori": 0,
+        "color": "red"
+      },
+      "b_tgt": {
+        "brick_id": 3,
+        "shape": "2x2",
+        "x": 8,
+        "y": 8,
+        "z": 2,
+        "ori": 0,
+        "color": "yellow"
+      },
+      "task_encoding": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "current_image": "images/001.png",
+      "current_mask": "masks/001.png"
+    },
+    {
+      "step_id": 3,
+      "b_ref": {
+        "brick_id": 1,
+        "shape": "2x4",
+        "x": 4,
+        "y": 8,
+        "z": 1,
+        "ori": 0,
+        "color": "orange"
+      },
+      "b_tgt": {
+        "brick_id": 4,
+        "shape": "2x2",
+        "x": 4,
+        "y": 8,
+        "z": 2,
+        "ori": 0,
+        "color": "red"
+      },
+      "task_encoding": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "current_image": "images/002.png",
+      "current_mask": "masks/002.png"
+    },
+    {
+      "step_id": 4,
+      "b_ref": {
+        "brick_id": 3,
+        "shape": "2x2",
+        "x": 8,
+        "y": 8,
+        "z": 2,
+        "ori": 0,
+        "color": "yellow"
+      },
+      "b_tgt": {
+        "brick_id": 5,
+        "shape": "2x2",
+        "x": 8,
+        "y": 8,
+        "z": 3,
+        "ori": 0,
+        "color": "red"
+      },
+      "task_encoding": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "current_image": "images/003.png",
+      "current_mask": "masks/003.png"
+    },
+    {
+      "step_id": 5,
+      "b_ref": {
+        "brick_id": 4,
+        "shape": "2x2",
+        "x": 4,
+        "y": 8,
+        "z": 2,
+        "ori": 0,
+        "color": "red"
+      },
+      "b_tgt": {
+        "brick_id": 6,
+        "shape": "2x2",
+        "x": 4,
+        "y": 8,
+        "z": 3,
+        "ori": 0,
+        "color": "yellow"
+      },
+      "task_encoding": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "current_image": "images/004.png",
+      "current_mask": "masks/004.png"
+    },
+    {
+      "step_id": 6,
+      "b_ref": {
+        "brick_id": 6,
+        "shape": "2x2",
+        "x": 4,
+        "y": 8,
+        "z": 3,
+        "ori": 0,
+        "color": "yellow"
+      },
+      "b_tgt": {
+        "brick_id": 7,
+        "shape": "2x4",
+        "x": 4,
+        "y": 8,
+        "z": 4,
+        "ori": 0,
+        "color": "orange"
+      },
+      "task_encoding": [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1
+      ],
+      "current_image": "images/005.png",
+      "current_mask": "masks/005.png"
+    },
+    {
+      "step_id": 7,
+      "b_ref": {
+        "brick_id": 7,
+        "shape": "2x4",
+        "x": 4,
+        "y": 8,
+        "z": 4,
+        "ori": 0,
+        "color": "orange"
+      },
+      "b_tgt": {
+        "brick_id": 8,
+        "shape": "2x2",
+        "x": 8,
+        "y": 8,
+        "z": 4,
+        "ori": 0,
+        "color": "yellow"
+      },
+      "task_encoding": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "current_image": "images/006.png",
+      "current_mask": "masks/006.png"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+# Six components: [x, y, z, orientation, reference_type, target_type].
+# Brick type codes: 0 = 2x2, 1 = 2x4. Must match the policy's task encoding.
+task_encoding: [0, 0, 1, 0, 1, 0]
+episode_timeout: 60.0  # Seconds per policy episode.
+
+# Set checkpoint paths for your deployment.
+sam2_config:
+  sam2_config: sam2.1_hiera_t_512
+  sam2_checkpoint: ./models/sam2/sam2.1_hiera_tiny.pt
+  sam2_device: cuda
+
+async_policy_controller_config:
+  policy_type: brick_diffusion
+  pretrained_path: ./models/brickcraft_diffusion/pretrained_model
+  control_freq: 10  # Hz for policy execution.
+  action_queue_thres: 3
+  device: cuda
+  enable_segmentation: true
+  confirm_segmentation: true  # Review the initial mask before policy execution.
+  segmentation_camera: fixed_camera
+  show_segmentation: false
+  diffusion_loss_warning_thres: 0.001
